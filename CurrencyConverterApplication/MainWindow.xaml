@@ -1,0 +1,25 @@
+﻿<Window x:Class="CurrencyConverterApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CurrencyConverterApplication" xmlns:CurrencyControl="clr-namespace:CurrencyControl;assembly=CurrencyControl" xmlns:viewmodel="clr-namespace:CurrencyConverterApplication.ViewModel" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:CurrencyViewModel}"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <DockPanel>
+            <CurrencyControl:CurrencyControl x:Name="pnlConverter"  Currencylist="{Binding Currencylist}"  HorizontalAlignment="Center" Margin="10,10,0,0" VerticalAlignment="Top" DockPanel.Dock="Top">
+                
+            </CurrencyControl:CurrencyControl>
+        </DockPanel>
+        <DockPanel Grid.Row="1" >
+            <local:ProductsView/>
+        </DockPanel>
+
+    </Grid>
+</Window>

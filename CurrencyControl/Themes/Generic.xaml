@@ -1,0 +1,54 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:CurrencyControl">
+    <Style TargetType="{x:Type local:CurrencyControl}">
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="Background" Value="#111111"/>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:CurrencyControl}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Margin="10" Orientation="Vertical">
+                            <Label Content="Input Value" Foreground="Blue" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+                            <!--First Text Input-->
+                            <TextBox x:Name="txtinput" Text="{Binding InputValue, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}, UpdateSourceTrigger=PropertyChanged}" 
+                                     HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,10,10" Width="150"/>
+                        </StackPanel>
+                        <StackPanel Margin="10" Orientation="Vertical" Grid.Column="1">
+                            <Label Content="Choose currency" Foreground="Blue" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+                            <ComboBox x:Name="cmbSourceCurrency"
+                                           ItemsSource="{Binding Currencylist, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}}"
+                                           SelectedItem="{Binding SourceCurrency, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}, Mode=TwoWay}"                  
+                                           HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="150"/>
+                        </StackPanel>
+                        <StackPanel Margin="10" Orientation="Vertical" Grid.Column="2">
+                            <Label Content="Output Value" Foreground="Blue" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+                            <!--Second Text Output-->
+                            <TextBox  x:Name="txtOutput" Text="{Binding OutputtValue, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}, UpdateSourceTrigger=PropertyChanged}" 
+                                      IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,10,10" Width="150"/>
+                        </StackPanel>
+                        <StackPanel  Margin="10" Grid.Column="3" Orientation="Vertical">
+                            <Label Content="Currency To" Foreground="Blue" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+                            <!--ComboBox with Sample Data-->
+                            <ComboBox  x:Name="cmbToCurrency"
+                                       ItemsSource="{Binding Currencylist, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}}"
+                                       SelectedItem="{Binding DestinationCurrency, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}, Mode=TwoWay}" 
+                                       HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="150"/>
+                            <Button x:Name="btnConvert"  Grid.Column="3" Content="Convert"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10,0,0" Width="150" IsEnabled="True"/>
+                        </StackPanel>                        
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
