@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -16,20 +17,22 @@ using System.Windows.Shapes;
 
 namespace CurrencyControl
 {
-
+    [TemplatePart(Name = "BtnConvert", Type = typeof(Button))]
     public class CurrencyControl : Control
     {
+
+       
         static CurrencyControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CurrencyControl), new FrameworkPropertyMetadata(typeof(CurrencyControl)));
         }
 
         public static readonly DependencyProperty InputValueProperty =
-            DependencyProperty.Register("InputValue", typeof(decimal), typeof(CurrencyControl));
+            DependencyProperty.Register("InputValue", typeof(double), typeof(CurrencyControl));
 
-        public decimal InputValue
+        public double InputValue
         {
-            get { return (decimal)GetValue(InputValueProperty); }
+            get { return (double)GetValue(InputValueProperty); }
             set { SetValue(InputValueProperty, value); }
         }
 
@@ -77,13 +80,45 @@ namespace CurrencyControl
             remove { RemoveHandler(ConvertButtonClickedEvent, value); }
         }
 
-        private void btnConvert_Click(object sender, RoutedEventArgs e)
+        private void BtnConvert_Click(object sender, RoutedEventArgs e)
         {
             // Handle the button click logic if needed
 
             // Raise the routed event
             RaiseEvent(new RoutedEventArgs(ConvertButtonClickedEvent, this));
         }
+        public override void OnApplyTemplate()
+        {
+            BtnConvert = GetTemplateChild("BtnConvert") as Button;
+            
+        }
+
+        private Button btnConvert;
+
+        private Button BtnConvert
+        {
+            get
+            {
+                return btnConvert;
+            }
+
+            set
+            {
+                if (btnConvert != null)
+                {
+                    btnConvert.Click -=
+                        new RoutedEventHandler(BtnConvert_Click);
+                }
+                btnConvert = value;
+
+                if (btnConvert != null)
+                {
+                    btnConvert.Click +=
+                        new RoutedEventHandler(BtnConvert_Click);
+                }
+            }
+        }
+
 
     }
 }

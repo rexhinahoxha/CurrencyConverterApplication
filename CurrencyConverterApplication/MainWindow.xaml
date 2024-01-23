@@ -13,7 +13,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <DockPanel>
-            <CurrencyControl:CurrencyControl x:Name="pnlConverter"  Currencylist="{Binding Currencylist}"  HorizontalAlignment="Center" Margin="10,10,0,0" VerticalAlignment="Top" DockPanel.Dock="Top">
+            <CurrencyControl:CurrencyControl x:Name="pnlConverter"   Currencylist="{Binding Currencylist}" OutputtValue="{Binding OutputValue}" HorizontalAlignment="Center" Margin="10,10,0,0" VerticalAlignment="Top" DockPanel.Dock="Top">
                 
             </CurrencyControl:CurrencyControl>
         </DockPanel>

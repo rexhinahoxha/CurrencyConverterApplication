@@ -44,7 +44,7 @@
                                        ItemsSource="{Binding Currencylist, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}}"
                                        SelectedItem="{Binding DestinationCurrency, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}, Mode=TwoWay}" 
                                        HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Width="150"/>
-                            <Button x:Name="btnConvert"  Grid.Column="3" Content="Convert"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10,0,0" Width="150" IsEnabled="True"/>
+                            <Button x:Name="BtnConvert"  Grid.Column="3" Content="Convert"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10,10,0,0" Width="150" IsEnabled="True"/>
                         </StackPanel>                        
                     </Grid>
                 </ControlTemplate>

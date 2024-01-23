@@ -16,14 +16,14 @@ namespace CurrencyConverterApplication
             _viewModel = new CurrencyViewModel(new CurrencyDataProvider());
             DataContext = _viewModel;
             Loaded += CurrencyConverterControl_Loaded;
-            pnlConverter.ConvertButtonClicked += HandleConvertButtonClicked;
+            pnlConverter.ConvertButtonClicked += btnConvert_Click;
 
         }
         private async void CurrencyConverterControl_Loaded(object sender, RoutedEventArgs e)
         {
             await _viewModel.LoadAsync();
         }
-        private void HandleConvertButtonClicked(object sender, RoutedEventArgs e)
+        private void btnConvert_Click(object sender, RoutedEventArgs e)
         {
             _viewModel.Calculate(pnlConverter.SourceCurrency, pnlConverter.DestinationCurrency, (double)pnlConverter.InputValue);
         }

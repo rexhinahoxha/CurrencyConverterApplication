@@ -13,7 +13,7 @@ namespace CurrencyConverterApplication.ViewModel
     public class CurrencyViewModel:ViewModelBase
     {
         private readonly ICurrencyDataProvider _currencyDataProvider;
-        private string outputValue;
+        private double outputValue;
 
         public CurrencyViewModel(ICurrencyDataProvider currencyDataProvider)
         {
@@ -23,7 +23,7 @@ namespace CurrencyConverterApplication.ViewModel
 
         public ObservableCollection<string> Currencylist { get; } = new();
        
-        public string OutputValue
+        public double OutputValue
         {
             get => outputValue;
             set
@@ -61,7 +61,7 @@ namespace CurrencyConverterApplication.ViewModel
         {
             //code to be done 
             MessageBox.Show("vlera " + InputValue);
-            OutputValue = _currencyDataProvider.ConvertAsync(ccyFrom, ccyTo, InputValue).Result.ToString();
+            OutputValue = _currencyDataProvider.ConvertAsync(ccyFrom, ccyTo, InputValue).Result;
         }
 
         internal void Calculate(string sourceCurrency, string destinationCurrency, bool v)
