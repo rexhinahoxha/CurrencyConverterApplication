@@ -2,13 +2,14 @@
 using System.Net.Http.Headers;
 using System.Net.Http;
 using Newtonsoft.Json;
+using System.Windows;
 
 namespace CurrencyConverterApplication.Data
 {
     public class CurrencyDataProvider : ICurrencyDataProvider
     {
         string baseURl = "http://api.currencylayer.com/";
-        string access_key = "e6446dd83fd16c672f50407fe9cb795e";
+        string access_key = "2833017b9126749777a5ee7ddb74862f";
 
         // Get currencies from API
         public async Task<CurrencyModel?> GetAllCurrenciesAsync()
@@ -131,6 +132,7 @@ namespace CurrencyConverterApplication.Data
         }
         public async Task<double> ConvertAsync(string currencyfrom, string currencyto, double amount)
         {
+            MessageBox.Show("hyri ketu");
             try
             {
                 ConvertModel? result = await Convert(currencyfrom, currencyto, amount).ConfigureAwait(false);

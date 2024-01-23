@@ -26,9 +26,10 @@ namespace CurrencyConverterApplication
         public ProductsView()
         {
             InitializeComponent();
-            _viewModel = new ProductsViewModel(new ProductDataProvider());
+            _viewModel = new ProductsViewModel(new ProductDataProvider(), new CurrencyDataProvider());
             DataContext = _viewModel;
             Loaded += ProductsControl_Loaded;
+            //dtProducts.Columns[2].Header = _viewModel.Col3;
         }
 
         private async void ProductsControl_Loaded(object sender, RoutedEventArgs e)

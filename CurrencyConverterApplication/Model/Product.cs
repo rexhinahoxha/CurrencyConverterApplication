@@ -11,5 +11,6 @@ namespace CurrencyConverterApplication.Model
         public string? ProductName { get; set; }
         public double Price { get; set; }
 
+        public double PriceConverted { get; set; }
     }
 }

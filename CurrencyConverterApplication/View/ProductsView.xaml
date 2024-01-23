@@ -11,7 +11,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}" Width="*" />
                 <DataGridTextColumn Header="Product Price in USD" Binding="{Binding Price}" Width="*" />
-                <!--<DataGridTextColumn Header="{Binding Col3}" Binding="{Binding Converted}" Width="*" />-->
+                <DataGridTextColumn Header="Product Price in ..." Binding="{Binding PriceConverted}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

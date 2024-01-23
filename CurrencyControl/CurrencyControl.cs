@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 namespace CurrencyControl
 {
     [TemplatePart(Name = "BtnConvert", Type = typeof(Button))]
+    [TemplatePart(Name = "cmbToCurrency", Type = typeof(ComboBox))]
     public class CurrencyControl : Control
     {
 
@@ -82,15 +83,15 @@ namespace CurrencyControl
 
         private void BtnConvert_Click(object sender, RoutedEventArgs e)
         {
-            // Handle the button click logic if needed
-
             // Raise the routed event
             RaiseEvent(new RoutedEventArgs(ConvertButtonClickedEvent, this));
         }
         public override void OnApplyTemplate()
         {
             BtnConvert = GetTemplateChild("BtnConvert") as Button;
-            
+            cmbToCurrency=GetTemplateChild("cmbToCurrency") as ComboBox;
+
+
         }
 
         private Button btnConvert;
@@ -117,6 +118,48 @@ namespace CurrencyControl
                         new RoutedEventHandler(BtnConvert_Click);
                 }
             }
+        }
+
+        public static readonly RoutedEvent SourceComboBoxSelectionChangedEvent =
+          EventManager.RegisterRoutedEvent("SourceComboBoxSelectionChangedEvent", RoutingStrategy.Bubble,
+          typeof(RoutedEventHandler), typeof(CurrencyControl));
+
+        public event RoutedEventHandler SourceComboBoxSelection
+        {
+            add { AddHandler(SourceComboBoxSelectionChangedEvent, value); }
+            remove { RemoveHandler(SourceComboBoxSelectionChangedEvent, value); }
+        }
+
+        private ComboBox _cmbToCurrency;
+
+        private ComboBox cmbToCurrency
+        {
+            get
+            {
+                return _cmbToCurrency;
+            }
+
+            set
+            {
+                if (_cmbToCurrency != null)
+                {
+                    _cmbToCurrency.SelectionChanged -=
+                        new SelectionChangedEventHandler(cmbToCurrency_SelectionChanged);
+                }
+                _cmbToCurrency = value;
+
+                if (_cmbToCurrency != null)
+                {
+                    _cmbToCurrency.SelectionChanged +=
+                        new SelectionChangedEventHandler(cmbToCurrency_SelectionChanged);
+                }
+            }
+        }
+        private void cmbToCurrency_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Raise the routed event
+            RaiseEvent(new RoutedEventArgs(SourceComboBoxSelectionChangedEvent, this));
+            
         }
 
 

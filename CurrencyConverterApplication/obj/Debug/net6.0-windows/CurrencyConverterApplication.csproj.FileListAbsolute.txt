@@ -38,7 +38,6 @@ C:\Users\User\Desktop\CurrencyConverterApplication\CurrencyConverterApplication\
 C:\Users\User\Desktop\CurrencyConverterApplication\CurrencyConverterApplication\obj\Debug\net6.0-windows\MainWindow.g.cs
 C:\Users\User\Desktop\CurrencyConverterApplication\CurrencyConverterApplication\obj\Debug\net6.0-windows\View\ProductsView.g.cs
 C:\Users\User\Desktop\CurrencyConverterApplication\CurrencyConverterApplication\obj\Debug\net6.0-windows\App.g.cs
-C:\Users\User\Desktop\CurrencyConverterApplication\CurrencyConverterApplication\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\User\Desktop\CurrencyConverterApplication\CurrencyConverterApplication\obj\Debug\net6.0-windows\CurrencyConverterApplication_MarkupCompile.cache
 C:\Users\User\Desktop\CurrencyConverterApplication\CurrencyConverterApplication\obj\Debug\net6.0-windows\CurrencyConverterApplication_MarkupCompile.lref
 C:\Users\User\Desktop\CurrencyConverterApplication\CurrencyConverterApplication\obj\Debug\net6.0-windows\MainWindow.baml

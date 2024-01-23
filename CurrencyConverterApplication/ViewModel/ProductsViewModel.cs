@@ -11,19 +11,22 @@ namespace CurrencyConverterApplication.ViewModel
 {
     public class ProductsViewModel : ViewModelBase
     {
-        private readonly IProductDataProvider _productDataProvider;
        
+        private readonly IProductDataProvider _productDataProvider;
+        private readonly ICurrencyDataProvider _currencyDataProvider;
 
-        public ProductsViewModel(IProductDataProvider productDataProvider)
+
+        public ProductsViewModel(IProductDataProvider productDataProvider, ICurrencyDataProvider currencyDataProvider)
         {
             _productDataProvider = productDataProvider;
-        }
+            _currencyDataProvider = currencyDataProvider;
 
-        
+                    
+        }       
 
-        public ObservableCollection<Product> Products { get; } = new();
-        public ObservableCollection<double> Converted { get; } = new();
-        private string? col3;      
+        public ObservableCollection<ProductViewItem> Products { get; } = new();
+       
+        private string? col3;
 
         public string? Col3
         {
@@ -43,9 +46,38 @@ namespace CurrencyConverterApplication.ViewModel
             {
                 foreach (var product in products)
                 {
-                    Products.Add(product);
+                    Products.Add(new ProductViewItem(product));
                 }
             }
         }
+
+        public  void GetProductPricesConverted(string currencyto)
+        {
+
+            try
+            {
+                ObservableCollection<Product> ProductsList = new();
+                string currencyFrom = "USD";
+                
+                if (!this.Products.Any())
+                {
+                    return;
+                }
+                foreach (var product in Products)
+                {
+                    double priceConverted = _currencyDataProvider.ConvertAsync(currencyFrom, currencyto, product.Price).Result;
+                    product.PriceConverted = priceConverted;
+
+                }
+
+
+            }
+            catch (Exception ex) { throw ex; }
+
+        }
+
+
+
+
     }
 }
