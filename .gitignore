@@ -1,29 +1,52 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/CurrencyConverterApplication/CurrencyConverterApplication.csproj
-/CurrencyConverterApplication/.vs
-/CurrencyConverterApplication/bin/Debug/net6.0-windows
-
-# Ignore DLL files
-*.dll
-
-# Ignore PDB files
-*.pdb
-
-# Ignore temporary files
-*~
-
-# Ignore Visual Studio files
+﻿# Ignore Visual Studio files
 .vscode/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw*
-# Ignore bin and obj directories
-/CurrencyConverterApplication/bin/
-/CurrencyConverterApplication/obj/
 
-/CurrencyControl/.vs/
+# Ignore DLL and PDB files
+*.dll
+*.pdb
+
+# Ignore NuGet packages
+*.nupkg
+packages/
+
+# Ignore user-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Ignore build and bin directories
+bin/
+obj/
+
+# Ignore ReSharper and Rider files
+_ReSharper*/
+*.resharper
+*.suo
+*.user
+*.sln.docstates
+
+# Ignore Visual Studio Code directories
+.vscode/
+
+# Ignore Rider directories
+.idea/
+
+# Ignore Windows image file caches
+Thumbs.db
+ehthumbs.db
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication_MarkupCompile.i.lref
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication.csproj.FileListAbsolute.txt
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication.g.resources
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication.pdb
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication_MarkupCompile.cache
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication_MarkupCompile.i.cache
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication_MarkupCompile.lref
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/MainWindow.baml
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/MainWindow.g.cs
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/MainWindow.g.i.cs
