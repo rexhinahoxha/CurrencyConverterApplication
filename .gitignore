@@ -5,3 +5,20 @@
 /CurrencyConverterApplication/CurrencyConverterApplication.csproj
 /CurrencyConverterApplication/.vs
 /CurrencyConverterApplication/bin/Debug/net6.0-windows
+
+# Ignore DLL files
+*.dll
+
+# Ignore PDB files
+*.pdb
+
+# Ignore temporary files
+*~
+
+# Ignore Visual Studio files
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*
