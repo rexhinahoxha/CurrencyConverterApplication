@@ -25,3 +25,15 @@
 # Ignore bin and obj directories
 bin/
 obj/
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication.csproj.AssemblyReference.cache
+/CurrencyControl/bin/Debug/CurrencyControl.dll
+/CurrencyControl/bin/Debug/CurrencyControl.pdb
+/CurrencyControl/obj/Debug/CurrencyControl.dll
+/CurrencyControl/obj/Debug/CurrencyControl.pdb
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/ref/CurrencyConverterApplication.dll
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/refint/CurrencyConverterApplication.dll
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication.AssemblyInfoInputs.cache
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication.AssemblyInfo.cs
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication.dll
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication.sourcelink.json
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/apphost.exe
