@@ -1,6 +1,8 @@
-﻿using System;
+﻿using CurrencyControl.Data;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,14 +20,16 @@ using System.Windows.Shapes;
 namespace CurrencyControl
 {
     [TemplatePart(Name = "BtnConvert", Type = typeof(Button))]
-    [TemplatePart(Name = "cmbToCurrency", Type = typeof(ComboBox))]
     public class CurrencyControl : Control
     {
+        private static readonly CurrencyDataProvider _currencyDataProvider;
+        
 
-       
         static CurrencyControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CurrencyControl), new FrameworkPropertyMetadata(typeof(CurrencyControl)));
+            _currencyDataProvider = new CurrencyDataProvider();
+           
         }
 
         public static readonly DependencyProperty InputValueProperty =
@@ -83,16 +87,21 @@ namespace CurrencyControl
 
         private void BtnConvert_Click(object sender, RoutedEventArgs e)
         {
-            // Raise the routed event
+            //check if all have values before going to API calculate
+            if (String.IsNullOrEmpty(SourceCurrency) || String.IsNullOrEmpty(DestinationCurrency) || InputValue == 0.00)
+            {
+                MessageBox.Show("Please fill in all the marked * as required fields!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);                
+                return;
+            }
+            OutputtValue = _currencyDataProvider.ConvertAsync(SourceCurrency, DestinationCurrency, InputValue).Result;           
             RaiseEvent(new RoutedEventArgs(ConvertButtonClickedEvent, this));
         }
         public override void OnApplyTemplate()
         {
             BtnConvert = GetTemplateChild("BtnConvert") as Button;
-            cmbToCurrency=GetTemplateChild("cmbToCurrency") as ComboBox;
-
-
+            LoadAsync();
         }
+        
 
         private Button btnConvert;
 
@@ -120,47 +129,30 @@ namespace CurrencyControl
             }
         }
 
-        public static readonly RoutedEvent SourceComboBoxSelectionChangedEvent =
-          EventManager.RegisterRoutedEvent("SourceComboBoxSelectionChangedEvent", RoutingStrategy.Bubble,
-          typeof(RoutedEventHandler), typeof(CurrencyControl));
-
-        public event RoutedEventHandler SourceComboBoxSelection
+        async void LoadAsync()
         {
-            add { AddHandler(SourceComboBoxSelectionChangedEvent, value); }
-            remove { RemoveHandler(SourceComboBoxSelectionChangedEvent, value); }
-        }
-
-        private ComboBox _cmbToCurrency;
-
-        private ComboBox cmbToCurrency
-        {
-            get
+            try
             {
-                return _cmbToCurrency;
-            }
-
-            set
-            {
-                if (_cmbToCurrency != null)
+                if (Currencylist.Any())
                 {
-                    _cmbToCurrency.SelectionChanged -=
-                        new SelectionChangedEventHandler(cmbToCurrency_SelectionChanged);
+                    return;
                 }
-                _cmbToCurrency = value;
+                var currencies = await _currencyDataProvider.GetCurrencies();
 
-                if (_cmbToCurrency != null)
+                if (currencies.Any())
                 {
-                    _cmbToCurrency.SelectionChanged +=
-                        new SelectionChangedEventHandler(cmbToCurrency_SelectionChanged);
+                    foreach (var currency in currencies)
+                    {
+
+                        Currencylist.Add(currency);
+                    }
                 }
+
             }
+            catch (Exception ex) { throw ex; }
+
         }
-        private void cmbToCurrency_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Raise the routed event
-            RaiseEvent(new RoutedEventArgs(SourceComboBoxSelectionChangedEvent, this));
-            
-        }
+
 
 
     }

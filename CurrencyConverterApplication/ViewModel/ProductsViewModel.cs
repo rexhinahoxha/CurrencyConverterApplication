@@ -13,13 +13,13 @@ namespace CurrencyConverterApplication.ViewModel
     {
        
         private readonly IProductDataProvider _productDataProvider;
-        private readonly ICurrencyDataProvider _currencyDataProvider;
+       
 
 
-        public ProductsViewModel(IProductDataProvider productDataProvider, ICurrencyDataProvider currencyDataProvider)
+        public ProductsViewModel(IProductDataProvider productDataProvider)
         {
             _productDataProvider = productDataProvider;
-            _currencyDataProvider = currencyDataProvider;
+           
 
                     
         }       
@@ -65,7 +65,7 @@ namespace CurrencyConverterApplication.ViewModel
                 }
                 foreach (var product in Products)
                 {
-                    double priceConverted = _currencyDataProvider.ConvertAsync(currencyFrom, currencyto, product.Price).Result;
+                    double priceConverted = _productDataProvider.ConvertAsync(currencyFrom, currencyto, product.Price).Result;
                     product.PriceConverted = priceConverted;
 
                 }

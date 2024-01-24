@@ -1,10 +1,15 @@
-﻿using CurrencyConverterApplication.Model;
+﻿using CurrencyControl.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http.Headers;
 using System.Net.Http;
-using Newtonsoft.Json;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using Newtonsoft.Json;
 
-namespace CurrencyConverterApplication.Data
+namespace CurrencyControl.Data
 {
     public class CurrencyDataProvider : ICurrencyDataProvider
     {
@@ -12,7 +17,7 @@ namespace CurrencyConverterApplication.Data
         string access_key = "2833017b9126749777a5ee7ddb74862f";
 
         // Get currencies from API
-        public async Task<CurrencyModel?> GetAllCurrenciesAsync()
+        public async Task<CurrencyModel> GetAllCurrenciesAsync()
         {
 
             try
@@ -44,12 +49,12 @@ namespace CurrencyConverterApplication.Data
             }
             return new CurrencyModel();
         }
-        public async Task<List<Currency>?> GetCurrenciesData()
+        public async Task<List<Currency>> GetCurrenciesData()
         {
             List<Currency> currencyList = new List<Currency>();
             try
             {
-                CurrencyModel? currencyModel = await GetAllCurrenciesAsync();
+                CurrencyModel currencyModel = await GetAllCurrenciesAsync();
 
                 if (currencyModel != null)
                 {
@@ -73,12 +78,12 @@ namespace CurrencyConverterApplication.Data
             return currencyList;
         }
 
-        public async Task<List<string>?> GetCurrencies()
+        public async Task<List<string>> GetCurrencies()
         {
             List<string> currencyList = new List<string>();
             try
             {
-                CurrencyModel? currencyModel = await GetAllCurrenciesAsync();
+                CurrencyModel currencyModel = await GetAllCurrenciesAsync();
 
                 if (currencyModel != null)
                 {
@@ -100,7 +105,7 @@ namespace CurrencyConverterApplication.Data
         }
 
         //Perform exchange API
-        public async Task<ConvertModel?> Convert(string currencyfrom, string currencyto, double amount)
+        public async Task<ConvertModel> Convert(string currencyfrom, string currencyto, double amount)
         {
             try
             {
@@ -132,10 +137,10 @@ namespace CurrencyConverterApplication.Data
         }
         public async Task<double> ConvertAsync(string currencyfrom, string currencyto, double amount)
         {
-            MessageBox.Show("hyri ketu");
+        
             try
             {
-                ConvertModel? result = await Convert(currencyfrom, currencyto, amount).ConfigureAwait(false);
+                ConvertModel result = await Convert(currencyfrom, currencyto, amount).ConfigureAwait(false);
                 if (result != null)
                 {
                     return result.result;
@@ -148,6 +153,6 @@ namespace CurrencyConverterApplication.Data
             return -1;
         }
 
-       
+
     }
 }

@@ -1,35 +1,41 @@
-﻿namespace CurrencyConverterApplication.Model
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CurrencyControl.Model
 {
     public class Currencies
     {
-        public string? AED { get; set; }
-        public string? AFN { get; set; }
-        public string? ALL { get; set; }
-        public string? AMD { get; set; }
-        public string? ANG { get; set; }
-        public string? AOA { get; set; }
-        public string? ARS { get; set; }
-        public string? AUD { get; set; }
-        public string? AWG { get; set; }
-        public string? AZN { get; set; }
-        public string? BAM { get; set; }
-        public string? BBD { get; set; }
-        public string? BDT { get; set; }
-        public string? BGN { get; set; }
-        public string? BHD { get; set; }
-        public string? BIF { get; set; }
-        public string? BMD { get; set; }
-        public string? BND { get; set; }
-        public string? BOB { get; set; }
-        public string? BRL { get; set; }
-        public string? BSD { get; set; }
-        public string? BTC { get; set; }
-        public string? BTN { get; set; }
-        public string? BWP { get; set; }
-        public string? BYN { get; set; }
-        public string? BYR { get; set; }
-        public string? BZD { get; set; }
-        public string? CAD { get; set; }
+        public string AED { get; set; }
+        public string AFN { get; set; }
+        public string ALL { get; set; }
+        public string AMD { get; set; }
+        public string ANG { get; set; }
+        public string AOA { get; set; }
+        public string ARS { get; set; }
+        public string AUD { get; set; }
+        public string AWG { get; set; }
+        public string AZN { get; set; }
+        public string BAM { get; set; }
+        public string BBD { get; set; }
+        public string BDT { get; set; }
+        public string BGN { get; set; }
+        public string BHD { get; set; }
+        public string BIF { get; set; }
+        public string BMD { get; set; }
+        public string BND { get; set; }
+        public string BOB { get; set; }
+        public string BRL { get; set; }
+        public string BSD { get; set; }
+        public string BTC { get; set; }
+        public string BTN { get; set; }
+        public string BWP { get; set; }
+        public string BYN { get; set; }
+        public string BYR { get; set; }
+        public string BZD { get; set; }
+        public string CAD { get; set; }
         public string CDF { get; set; }
         public string CHF { get; set; }
         public string CLF { get; set; }
