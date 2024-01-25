@@ -22,57 +22,65 @@ namespace CurrencyConverterApplication.ViewModel
            
 
                     
-        }       
-
-        public ObservableCollection<ProductViewItem> Products { get; } = new();
+        }
+        private ObservableCollection<ProductViewItem> products=new ObservableCollection<ProductViewItem>();
+        public ObservableCollection<ProductViewItem> Products { get=>products; set { products = value; } }
        
         private string? col3;
 
         public string? Col3
         {
-            get { return col3; }
-            set { col3 = value; }
-        }
+            get => col3;
+            set
+            {
+                col3 = value;                
+                RaisePropertychanged();
+            }
+        }       
 
         public override async Task LoadAsync()
         {
-            if (Products.Any())
-            {
-                return;
-            }
-
-            var products = await _productDataProvider.GetAllAsync();
-            if (products is not null)
-            {
-                foreach (var product in products)
-                {
-                    Products.Add(new ProductViewItem(product));
-                }
-            }
-        }
-
-        public  void GetProductPricesConverted(string currencyto)
-        {
-
             try
             {
-                ObservableCollection<Product> ProductsList = new();
-                string currencyFrom = "USD";
-                
-                if (!this.Products.Any())
+                if (products.Any())
                 {
                     return;
                 }
-                foreach (var product in Products)
+
+                var _products = await _productDataProvider.GetAllAsync();
+                if (_products is not null)
                 {
-                    double priceConverted = _productDataProvider.ConvertAsync(currencyFrom, currencyto, product.Price).Result;
-                    product.PriceConverted = priceConverted;
+                    foreach (var product in _products)
+                    {
+                        products.Add(new ProductViewItem(product));
+                    }
+                }
+            }
+            catch(Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
+        }
+
+        public async void GetProductPricesConverted(string currencyto)
+        {
+
+            try
+            {              
+                string currencyFrom = "USD";              
+                if (!this.products.Any())
+                {
+                    return;
+                }
+                double pricetoetRate = 10;
+                double conversionRate = await _productDataProvider.GetConversionRate(currencyFrom, currencyto, pricetoetRate);
+                foreach (var product in products)
+                {
+                    
+                    product.PriceConverted= conversionRate*product.Price;
 
                 }
-
+     
 
             }
-            catch (Exception ex) { throw ex; }
+            catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
 
         }
 

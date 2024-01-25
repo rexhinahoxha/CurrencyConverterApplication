@@ -2,14 +2,13 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:CurrencyControl">
-    <Style TargetType="TextBox">
-        <Style.Triggers>
-            <Trigger Property="IsKeyboardFocused" Value="True">
-                <Setter Property="Foreground" Value="DarkOrange" />
-            </Trigger>
-        </Style.Triggers>
+    <Style x:Key="txtStyle"  TargetType="TextBox" >
+        <Setter  Property="Background" Value="{Binding CustomBackground, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}}"/>
+        <Setter  Property="Foreground" Value="{Binding CustomForeground, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}}"/>
+        <Setter  Property="FontFamily" Value="{Binding CustomFont, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}}"/>
     </Style>
     <Style TargetType="{x:Type local:CurrencyControl}">
+        <Setter Property="CustomStyle" Value="{StaticResource txtStyle}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:CurrencyControl}">
@@ -23,7 +22,7 @@
                         <StackPanel Margin="10" Orientation="Vertical">
                             <Label Content="Input Value*" Foreground="Blue" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
                             <!--First Text Input-->
-                            <TextBox x:Name="txtinput" Text="{Binding InputValue, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}, UpdateSourceTrigger=PropertyChanged , StringFormat=N2}" 
+                            <TextBox Style="{Binding CustomStyle, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}}"  x:Name="txtinput" Text="{Binding InputValue, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}, UpdateSourceTrigger=PropertyChanged , StringFormat=N2}" 
                                      HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,10,10" Width="150"/>
                         </StackPanel>
                         <StackPanel Margin="10" Orientation="Vertical" Grid.Column="1">
@@ -36,7 +35,7 @@
                         <StackPanel Margin="10" Orientation="Vertical" Grid.Column="2">
                             <Label Content="Output Value" Foreground="Blue" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
                             <!--Second Text Output-->
-                            <TextBox  x:Name="txtOutput" Text="{Binding OutputtValue, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}, UpdateSourceTrigger=PropertyChanged}" 
+                            <TextBox Style="{StaticResource txtStyle}" x:Name="txtOutput" Text="{Binding OutputtValue, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}, UpdateSourceTrigger=PropertyChanged}" 
                                       IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,10,10" Width="150"/>
                         </StackPanel>
                         <StackPanel  Margin="10" Grid.Column="3" Orientation="Vertical">
@@ -51,6 +50,6 @@
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>
-        </Setter>
+        </Setter>        
     </Style>
 </ResourceDictionary>

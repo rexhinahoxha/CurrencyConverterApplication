@@ -17,15 +17,24 @@ namespace CurrencyConverterApplication
             _viewModel = new ProductsViewModel(new ProductDataProvider());
             DataContext = _viewModel;
             Loaded += CurrencyConverterControl_Loaded;
-          
+            _viewModel.Col3 = "Product Price in ___";
+
+
         }
+      
+
         private async void CurrencyConverterControl_Loaded(object sender, RoutedEventArgs e)
         {
             await _viewModel.LoadAsync();
         }
-        
 
-       
+        private  void LoadGrid_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.GetProductPricesConverted(pnlConverter.DestinationCurrency);
+            _viewModel.Col3= String.Format("Product Price in {0}", pnlConverter.DestinationCurrency);
+            //dtProducts.Columns[2].Header = String.Format("Product Price in {0}", pnlConverter.DestinationCurrency);
 
+
+        }
     }
 }

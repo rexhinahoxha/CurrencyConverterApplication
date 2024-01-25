@@ -14,7 +14,8 @@ namespace CurrencyConverterApplication.Data
     public interface IProductDataProvider
     {
         Task<IEnumerable<Product>?> GetAllAsync();
-        Task<double> ConvertAsync(string currencyfrom, string currencyto, double amount);
+
+        Task<double> GetConversionRate(string currencyfrom, string currencyto, double amount);
     }
     public class ProductDataProvider : IProductDataProvider
     {
@@ -25,19 +26,18 @@ namespace CurrencyConverterApplication.Data
             return new List<Product>
             {
                  new Product{ProductName="Cappuccino", Price=1.7},
-                 new Product{ProductName="Doppio", Price=1.7},
-                 new Product{ProductName="Espresso", Price=1}
+                 new Product{ProductName="Doppio", Price=1.2}
 
             };
         }
 
 
-        string baseURl = "http://api.currencylayer.com/";
-        string access_key = "2833017b9126749777a5ee7ddb74862f";
+        string baseURl =App.BaseUrl;
+        string access_key = App.Access_key;
 
 
         //Perform exchange API
-        public async Task<ConvertModel?> Convert(string currencyfrom, string currencyto, double amount)
+        public async Task<double> GetConversionRate(string currencyfrom, string currencyto, double amount)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace CurrencyConverterApplication.Data
                     {
                         string content = await response.Content.ReadAsStringAsync();
                         var myDeserializedClass = JsonConvert.DeserializeObject<ConvertModel>(content);
-                        return myDeserializedClass;
+                        return myDeserializedClass.info.quote;
                     }
                     else
                     {
@@ -65,24 +65,8 @@ namespace CurrencyConverterApplication.Data
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
-            return new ConvertModel();
+            return 0;
         }
-        public async Task<double> ConvertAsync(string currencyfrom, string currencyto, double amount)
-        {
-            MessageBox.Show("hyri ketu");
-            try
-            {
-                ConvertModel? result = await Convert(currencyfrom, currencyto, amount).ConfigureAwait(false);
-                if (result != null)
-                {
-                    return result.result;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error: {ex.Message}");
-            }
-            return -1;
+       
         }
-    }
 }

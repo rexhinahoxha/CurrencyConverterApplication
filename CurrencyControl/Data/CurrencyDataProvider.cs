@@ -14,7 +14,7 @@ namespace CurrencyControl.Data
     public class CurrencyDataProvider : ICurrencyDataProvider
     {
         string baseURl = "http://api.currencylayer.com/";
-        string access_key = "2833017b9126749777a5ee7ddb74862f";
+        string access_key = "6ac174a15508ce09e2e89ad74ae79c45";
 
         // Get currencies from API
         public async Task<CurrencyModel> GetAllCurrenciesAsync()
