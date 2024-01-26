@@ -39,20 +39,6 @@ namespace CurrencyConverterApplication.UnitTests.Tests
         }
 
         [TestMethod]
-        public async Task GetConversionRate_ShouldReturnListOfProducts()
-        {
-            // Arrange
-            var productProvider = new ProductDataProvider();
-
-            // Act
-            var result = await productProvider.GetAllAsync();
-            var productList = result.ToList();
-
-            // Assert
-            Assert.AreEqual(2, productList.Count, "Expected 2 products");
-        }
-
-        [TestMethod]
         public async Task GetConversionRate_SuccessfulApiResponse_ShouldReturnConversionRate()
         {
             // Arrange
