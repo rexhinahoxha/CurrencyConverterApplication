@@ -65,7 +65,7 @@ namespace CurrencyConverterApplication.Data
             {
                 Console.WriteLine($"Error: {ex.Message}");
             }
-            return 0;
+            return -1;
         }
        
         }
