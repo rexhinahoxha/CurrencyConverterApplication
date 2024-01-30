@@ -58,3 +58,7 @@ ehthumbs.db
 /CurrencyControl/obj/Debug/CurrencyControl_MarkupCompile.cache
 /CurrencyControl/obj/Debug/CurrencyControl_MarkupCompile.lref
 /CurrencyControl/obj/Debug/GeneratedInternalTypeHelper.g.cs
+*.cs
+*.cache
+*.json
+*.editorconfig
