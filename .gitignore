@@ -20,9 +20,10 @@ packages/
 *.suo
 *.sln.docstates
 
-# Ignore build and bin directories
-[Oo]bin/
-[Oo]obj/
+# Ignore build directories
+[Oo]bj/
+[Cc]ache/
+[Bb]in/
 
 # Ignore ReSharper and Rider files
 _ReSharper*/
@@ -35,8 +36,6 @@ _ReSharper*/
 .vscode/
 **/.vs/
 *.wsuo
-/CurrencyControl/obj/
-/CurrencyConverterApplication/obj/Debug/net6.0-windows/
 
 # Ignore Rider directories
 .idea/
@@ -44,24 +43,35 @@ _ReSharper*/
 # Ignore Windows image file caches
 Thumbs.db
 ehthumbs.db
-/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication_MarkupCompile.i.lref
-/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication.csproj.FileListAbsolute.txt
-/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication.g.resources
-/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication.pdb
-/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication_MarkupCompile.cache
-/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication_MarkupCompile.i.cache
-/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication_MarkupCompile.lref
-/CurrencyConverterApplication/obj/Debug/net6.0-windows/MainWindow.baml
-/CurrencyConverterApplication/obj/Debug/net6.0-windows/MainWindow.g.cs
-/CurrencyConverterApplication/obj/Debug/net6.0-windows/MainWindow.g.i.cs
-/CurrencyControl/obj/Debug/Themes/Generic.baml
-/CurrencyControl/obj/Debug/CurrencyControl.csproj.CoreCompileInputs.cache
-/CurrencyControl/obj/Debug/CurrencyControl.csproj.FileListAbsolute.txt
-/CurrencyControl/obj/Debug/CurrencyControl.g.resources
-/CurrencyControl/obj/Debug/CurrencyControl_MarkupCompile.cache
-/CurrencyControl/obj/Debug/CurrencyControl_MarkupCompile.lref
-/CurrencyControl/obj/Debug/GeneratedInternalTypeHelper.g.cs
-*.cs
+
+# Ignore .NET build artifacts
+*.i
+*.resources
 *.cache
-*.json
-*.editorconfig
+
+# Ignore specific project artifacts
+*.csproj.FileListAbsolute.txt
+*.g.cs
+*.g.i.cs
+*.g.resources
+*.i.cache
+*.lref
+*.baml
+*.sourcelink.json
+
+# Ignore SQLite database files
+.slnx.sqlite
+
+# Ignore test-related artifacts
+/CurrencyConverterApplicationTests/obj/Debug/net6.0-windows/
+
+# Ignore generated files in /CurrencyControl/obj/
+/CurrencyControl/obj/Debug/Themes/
+/CurrencyControl/obj/Debug/*.csproj.CoreCompileInputs.cache
+/CurrencyControl/obj/Debug/*.csproj.FileListAbsolute.txt
+/CurrencyControl/obj/Debug/*.g.resources
+/CurrencyControl/obj/Debug/*_MarkupCompile.cache
+/CurrencyControl/obj/Debug/*_MarkupCompile.lref
+/MainWindow.baml
+/MainWindow.g.cs
+/MainWindow.g.i.cs
