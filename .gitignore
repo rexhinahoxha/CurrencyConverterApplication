@@ -1,10 +1,6 @@
 ﻿# Ignore Visual Studio files
 .vscode/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw*
+.vs/
 
 # Ignore DLL and PDB files
 *.dll
@@ -74,4 +70,3 @@ ehthumbs.db
 /CurrencyControl/obj/Debug/*_MarkupCompile.lref
 /MainWindow.baml
 /MainWindow.g.cs
-/MainWindow.g.i.cs
