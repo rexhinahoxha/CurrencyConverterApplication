@@ -68,5 +68,11 @@ ehthumbs.db
 /CurrencyControl/obj/Debug/*.g.resources
 /CurrencyControl/obj/Debug/*_MarkupCompile.cache
 /CurrencyControl/obj/Debug/*_MarkupCompile.lref
+/CurrencyConverterApplicationTests/obj/Debug/Themes/
+/CurrencyConverterApplicationTests/obj/Debug/*.csproj.CoreCompileInputs.cache
+/CurrencyConverterApplicationTests/obj/Debug/*.csproj.FileListAbsolute.txt
+/CurrencyConverterApplicationTests/obj/Debug/*.g.resources
+/CurrencyConverterApplicationTests/obj/Debug/*_MarkupCompile.cache
+/CurrencyConverterApplicationTests/obj/Debug/*_MarkupCompile.lref
 /MainWindow.baml
 /MainWindow.g.cs
