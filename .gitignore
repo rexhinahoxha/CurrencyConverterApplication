@@ -21,8 +21,8 @@ packages/
 *.sln.docstates
 
 # Ignore build and bin directories
-bin/
-obj/
+[Oo]bin/
+[Oo]obj/
 
 # Ignore ReSharper and Rider files
 _ReSharper*/
@@ -33,6 +33,7 @@ _ReSharper*/
 
 # Ignore Visual Studio Code directories
 .vscode/
+**/.vs/
 
 # Ignore Rider directories
 .idea/
@@ -57,5 +58,3 @@ ehthumbs.db
 /CurrencyControl/obj/Debug/CurrencyControl_MarkupCompile.cache
 /CurrencyControl/obj/Debug/CurrencyControl_MarkupCompile.lref
 /CurrencyControl/obj/Debug/GeneratedInternalTypeHelper.g.cs
-/CurrencyConverterApplication/.vs
-/CurrencyControl/.vs
