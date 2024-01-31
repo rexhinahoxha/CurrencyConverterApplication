@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ars.png" />
+    <None Remove="aud.png" />
+    <None Remove="bgn.png" />
+    <None Remove="cad.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Moq" Version="4.20.70" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NUnit" Version="4.0.1" />
@@ -16,6 +23,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CurrencyControl\CurrencyControl.csproj" />
+    <ProjectReference Include="..\CurrencyConverterControl\CurrencyConverterControl.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="ars.png" />
+    <Resource Include="aud.png" />
+    <Resource Include="bgn.png" />
+    <Resource Include="cad.png" />
   </ItemGroup>
 
 </Project>

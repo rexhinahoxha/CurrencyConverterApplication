@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CurrencyConverterApplicatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyControl", "..\CurrencyControl\CurrencyControl.csproj", "{0E297240-8417-45FB-8B75-D86243A033D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyConverterApplicationTests", "..\CurrencyConverterApplicationTests\CurrencyConverterApplicationTests.csproj", "{DA032865-853D-450C-8AD9-340471530A33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CurrencyConverterApplicationTests", "..\CurrencyConverterApplicationTests\CurrencyConverterApplicationTests.csproj", "{DA032865-853D-450C-8AD9-340471530A33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CurrencyConverterControl", "..\CurrencyConverterControl\CurrencyConverterControl.csproj", "{A2AAFDEE-28F0-418F-8CB4-B0145548DEF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{DA032865-853D-450C-8AD9-340471530A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA032865-853D-450C-8AD9-340471530A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA032865-853D-450C-8AD9-340471530A33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2AAFDEE-28F0-418F-8CB4-B0145548DEF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2AAFDEE-28F0-418F-8CB4-B0145548DEF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2AAFDEE-28F0-418F-8CB4-B0145548DEF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2AAFDEE-28F0-418F-8CB4-B0145548DEF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

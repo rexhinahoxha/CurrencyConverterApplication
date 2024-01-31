@@ -35,7 +35,7 @@
                         <StackPanel Margin="10" Orientation="Vertical" Grid.Column="2">
                             <Label Content="Output Value" Foreground="Blue" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
                             <!--Second Text Output-->
-                            <TextBox Style="{StaticResource txtStyle}" x:Name="txtOutput" Text="{Binding OutputtValue, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}, UpdateSourceTrigger=PropertyChanged}" 
+                            <TextBox Style="{StaticResource txtStyle}" x:Name="txtOutput" Text="{Binding OutputValue, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyControl}}, UpdateSourceTrigger=PropertyChanged}" 
                                       IsReadOnly="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,10,10" Width="150"/>
                         </StackPanel>
                         <StackPanel  Margin="10" Grid.Column="3" Orientation="Vertical">

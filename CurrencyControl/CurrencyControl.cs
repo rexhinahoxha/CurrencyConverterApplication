@@ -103,7 +103,7 @@ namespace CurrencyControl
         public override void OnApplyTemplate()
         {
             BtnConvert = GetTemplateChild("BtnConvert") as Button;
-            LoadAsync();
+            // LoadAsync();
         }
         
 
