@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CurrencyConverterApplication.Data;
+using CurrencyConverterApplication.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,19 @@ namespace CurrencyConverterApplication
     /// </summary>
     public partial class Window1 : Window
     {
+        private ProductsViewModel _viewModel;
         public Window1()
         {
             InitializeComponent();
+            _viewModel = new ProductsViewModel(new ProductDataProvider());
+            DataContext = _viewModel;
+            LoadProductList();
+            //_viewModel.Col3 = "Converted Price in ()";
+        }
+
+        private void LoadProductList()
+        {
+             _viewModel.LoadProductsList();
         }
     }
 }

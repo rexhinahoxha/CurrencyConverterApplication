@@ -16,8 +16,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>            
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0">
             <CurrencyControl:CurrencyControl x:Name="pnlConverter" Background="Black" HorizontalAlignment="Center" Foreground="Red" Margin="10,10,0,0" VerticalAlignment="Top" DockPanel.Dock="Top" CustomBackground="LightGray"  CustomForeground="Black"  CustomFont="Comic Sans MS" CustomStyle="{StaticResource txtStyle2}"/>

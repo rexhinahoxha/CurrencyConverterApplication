@@ -11,5 +11,6 @@ namespace CurrencyConverterControl.Data
     {
         List<Currency> GetCurrenciesData();
         Task<double> ConvertAsync(string currencyfrom, string currencyto, double amount);
+        Task<double> GetConversionRate(string currencyfrom, string currencyto);
     }
 }

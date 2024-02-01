@@ -19,13 +19,17 @@ namespace CurrencyConverterApplication.ViewModel
         public ProductsViewModel(IProductDataProvider productDataProvider)
         {
             _productDataProvider = productDataProvider;
-           
-
-                    
+                   
         }
-        private ObservableCollection<ProductViewItem> products=new ObservableCollection<ProductViewItem>();
-        public ObservableCollection<ProductViewItem> Products { get=>products; set { products = value; } }
-       
+        /// <summary>
+        /// Gets or sets the ObservableCollection of Products objects.
+        /// </summary>
+        /// <remarks>
+        /// The ProductsList property represents a collection of Products objects,
+        /// typically used as a data context to the Products Grid
+        /// </remarks>
+        public ObservableCollection<ProductViewItem> ProductsList { get; private set; } = new ObservableCollection<ProductViewItem>();
+
         private string? col3;
 
         public string? Col3
@@ -38,21 +42,21 @@ namespace CurrencyConverterApplication.ViewModel
             }
         }       
 
-        public override async Task LoadAsync()
+        public void LoadProductsList()
         {
             try
             {
-                if (products.Any())
+                if (ProductsList.Any())
                 {
                     return;
                 }
 
-                var _products = await _productDataProvider.GetAllAsync();
+                var _products =  _productDataProvider.GetAllAsync();
                 if (_products is not null)
                 {
                     foreach (var product in _products)
                     {
-                        products.Add(new ProductViewItem(product));
+                        ProductsList.Add(new ProductViewItem(product));
                     }
                 }
             }
@@ -65,13 +69,13 @@ namespace CurrencyConverterApplication.ViewModel
             try
             {              
                 string currencyFrom = "USD";              
-                if (!this.products.Any())
+                if (!this.ProductsList.Any())
                 {
                     return;
                 }
                 double pricetoetRate = 10;
-                double conversionRate = await _productDataProvider.GetConversionRate(currencyFrom, currencyto, pricetoetRate);
-                foreach (var product in products)
+                double conversionRate = 0.0;// await _productDataProvider.GetConversionRate(currencyFrom, currencyto, pricetoetRate);
+                foreach (var product in ProductsList)
                 {
                     
                     product.PriceConverted= conversionRate*product.Price;

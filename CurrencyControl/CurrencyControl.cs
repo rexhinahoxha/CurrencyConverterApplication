@@ -156,11 +156,11 @@ namespace CurrencyControl
             catch (Exception ex) { throw ex; }
 
         }
-
+        
         #region Properties 
         public static readonly DependencyProperty CustomFontProperty =
             DependencyProperty.Register(nameof(CustomFont), typeof(FontFamily), typeof(CurrencyControl));
-
+       
         public FontFamily CustomFont
         {
             get { return (FontFamily)GetValue(CustomFontProperty); }

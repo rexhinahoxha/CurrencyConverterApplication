@@ -3,17 +3,31 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CurrencyConverterApplication" xmlns:CurrencConverterControl="clr-namespace:CurrencyConverterControl;assembly=CurrencyConverterControl"
+        xmlns:local="clr-namespace:CurrencyConverterApplication" xmlns:CurrencConverterControl="clr-namespace:CurrencyConverterControl;assembly=CurrencyConverterControl" xmlns:viewmodel="clr-namespace:CurrencyConverterApplication.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ProductsViewModel}"
         mc:Ignorable="d"
-        Title="Currency Converter" Height="auto" Width="auto">
+        Title="Currency Converter" Height="210" Width="500">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <!--Currency Convertor control-->
         <DockPanel Grid.Row="0" Margin="10,10,0,10" HorizontalAlignment="Left">
-            <CurrencConverterControl:CurrencyConverterControl DockPanel.Dock="Top"/>
-        </DockPanel>        
-        
+            <CurrencConverterControl:CurrencyConverterControl x:Name="currencyConvertor" DockPanel.Dock="Top" Margin="0 10 10 0"/>
+        </DockPanel>
+        <!--Product Grid-->
+        <DockPanel Grid.Row="1" >
+            <DataGrid x:Name="dtProducts" AutoGenerateColumns="False" ItemsSource="{Binding ProductsList}"  IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}"  />
+                    <DataGridTextColumn Header="Product Price in USD" Binding="{Binding Price}" />
+                    <DataGridTextColumn Binding="{Binding PriceConverted}">
+                        <DataGridTextColumn.Header>
+                            <TextBlock Text="{Binding DataContext.Col3, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </DockPanel>
     </Grid>
 </Window>
