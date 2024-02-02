@@ -2,6 +2,8 @@
 using CurrencyConverterApplication.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,19 +23,36 @@ namespace CurrencyConverterApplication
     /// </summary>
     public partial class Window1 : Window
     {
-        private ProductsViewModel _viewModel;
+        private MainViewModel _viewModel;
         public Window1()
         {
             InitializeComponent();
-            _viewModel = new ProductsViewModel(new ProductDataProvider());
+            _viewModel = new MainViewModel(new ProductDataProvider());
             DataContext = _viewModel;
-            LoadProductList();
-            //_viewModel.Col3 = "Converted Price in ()";
+            _viewModel.LoadProductsList();
+            //Loaded += LoadProductsList;
+           
         }
 
-        private void LoadProductList()
-        {
-             _viewModel.LoadProductsList();
-        }
+        //public ObservableCollection<ProductViewItem> ProductsList2 { get; private set; } = new ObservableCollection<ProductViewItem>();
+
+
+        //private void LoadProductsList(object sender, RoutedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        var ProductListTemp = _viewModel.LoadProductsList();
+        //        //foreach (var pr in ProductListTemp)
+        //        //{
+        //        //    double convertedPrice = currencyConvertor.ConvertValues("USD", pr.Price);
+        //        //    pr.PriceConverted = convertedPrice;
+        //        //    ProductsList2.Add(pr);
+
+        //        //}
+
+        //    }
+        //    catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
+        //}
+
     }
 }

@@ -3,9 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CurrencyConverterApplication" xmlns:CurrencConverterControl="clr-namespace:CurrencyConverterControl;assembly=CurrencyConverterControl" xmlns:viewmodel="clr-namespace:CurrencyConverterApplication.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ProductsViewModel}"
-        mc:Ignorable="d"
-        Title="Currency Converter" Height="210" Width="500">
+        xmlns:CurrencConverterControl="clr-namespace:CurrencyConverterControl;assembly=CurrencyConverterControl"         
+        xmlns:viewmodel="clr-namespace:CurrencyConverterApplication.ViewModel"
+        xmlns:converters="clr-namespace:CurrencyConverterApplication" d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
+        mc:Ignorable="d" Title="Currency Converter" Height="210" Width="500">
+    <Window.Resources>
+        <converters:HeaderConverter x:Key="HeaderConverter"/>
+        <converters:CurrencyValueConverter x:Key="ValueConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -21,10 +26,32 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}"  />
                     <DataGridTextColumn Header="Product Price in USD" Binding="{Binding Price}" />
-                    <DataGridTextColumn Binding="{Binding PriceConverted}">
+                    <DataGridTextColumn>
                         <DataGridTextColumn.Header>
-                            <TextBlock Text="{Binding DataContext.Col3, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                            <TextBlock Text="{Binding ElementName=currencyConvertor, Path=DestinationCurrency.CurrencyCode,
+                        Converter={StaticResource HeaderConverter},
+                        ConverterParameter={x:Reference currencyConvertor}}" />
                         </DataGridTextColumn.Header>
+                        <DataGridTextColumn.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="DataGridCell">
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource ValueConverter}">
+                                                        <Binding Path="Price" />
+                                                        <Binding ElementName="currencyConvertor" Path="DestinationCurrency.CurrencyCode" 
+                                             ConverterParameter="{x:Reference currencyConvertor}" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </DataGridTextColumn.CellStyle>
+                        
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>

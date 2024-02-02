@@ -26,11 +26,4 @@
     <ProjectReference Include="..\CurrencyConverterControl\CurrencyConverterControl.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="ars.png" />
-    <Resource Include="aud.png" />
-    <Resource Include="bgn.png" />
-    <Resource Include="cad.png" />
-  </ItemGroup>
-
 </Project>

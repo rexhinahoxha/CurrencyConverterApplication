@@ -9,18 +9,19 @@ using System.Threading.Tasks;
 
 namespace CurrencyConverterApplication.ViewModel
 {
-    public class ProductsViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase
     {
        
         private readonly IProductDataProvider _productDataProvider;
        
 
 
-        public ProductsViewModel(IProductDataProvider productDataProvider)
+        public MainViewModel(IProductDataProvider productDataProvider)
         {
             _productDataProvider = productDataProvider;
                    
         }
+
         /// <summary>
         /// Gets or sets the ObservableCollection of Products objects.
         /// </summary>
@@ -30,25 +31,13 @@ namespace CurrencyConverterApplication.ViewModel
         /// </remarks>
         public ObservableCollection<ProductViewItem> ProductsList { get; private set; } = new ObservableCollection<ProductViewItem>();
 
-        private string? col3;
-
-        public string? Col3
-        {
-            get => col3;
-            set
-            {
-                col3 = value;                
-                RaisePropertychanged();
-            }
-        }       
-
-        public void LoadProductsList()
+        public ObservableCollection<ProductViewItem> LoadProductsList()
         {
             try
             {
                 if (ProductsList.Any())
                 {
-                    return;
+                    return new();
                 }
 
                 var _products =  _productDataProvider.GetAllAsync();
@@ -59,8 +48,10 @@ namespace CurrencyConverterApplication.ViewModel
                         ProductsList.Add(new ProductViewItem(product));
                     }
                 }
+              
             }
             catch(Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
+            return ProductsList;
         }
 
         public async void GetProductPricesConverted(string currencyto)

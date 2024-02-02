@@ -32,12 +32,14 @@ namespace CurrencyConverterControl
     public class CurrencyConverterControl : Control, INotifyPropertyChanged
     {
         private static ICurrencyDataProvider CurrencyDataProvider;
+        private ComboBox _currencyDestination;
+        private ComboBox _currencySource;
          static CurrencyConverterControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CurrencyConverterControl), new FrameworkPropertyMetadata(typeof(CurrencyConverterControl)));
             CurrencyDataProvider = new CurrencyDataProvider();
         }
-        
+
         #region Dependency Properties
         /// <summary>
         /// Gets or sets the input value for currency conversion within the CurrencyConverterControl.
@@ -46,14 +48,15 @@ namespace CurrencyConverterControl
         /// The InputValue property represents the value to be converted between different currencies.
         /// It is bound to the user interface elements where users can input the amount for conversion.
         /// </remarks>
+        [Description("Value to be converted")]
         public double InputValue
         {
             get { return (double)GetValue(InputValueProperty); }
             set { SetValue(InputValueProperty, value); }
         }
-        private static readonly DependencyProperty InputValueProperty =
+        public static readonly DependencyProperty InputValueProperty =
             DependencyProperty.Register("InputValue", typeof(double), typeof(CurrencyConverterControl));
-                
+
         /// <summary>
         /// Gets or sets the output value for the result of currency conversion within the CurrencyConverterControl.
         /// </summary>
@@ -61,32 +64,35 @@ namespace CurrencyConverterControl
         /// The OutputValue property represents the result of the currency conversion based on the provided input value.
         /// It is bound to the user interface elements where the converted amount is displayed to the user.
         /// </remarks>
+         [Description("Converted value")]
         public double OutputValue
         {
             get { return (double)GetValue(OutputValueProperty); }
             set { SetValue(OutputValueProperty, value); }
         }
 
-        private static readonly DependencyProperty OutputValueProperty =
+        public static readonly DependencyProperty OutputValueProperty =
            DependencyProperty.Register("OutputValue", typeof(double), typeof(CurrencyConverterControl));
         
-        private static readonly DependencyProperty DestinationCurrencyProperty =
+        public static readonly DependencyProperty DestinationCurrencyProperty =
            DependencyProperty.Register("DestinationCurrency", typeof(Currency), typeof(CurrencyConverterControl));
         /// <summary>
         /// Gets the Destination Currency to perform the currency conversion  
         /// </summary>
+        [Description("Value of the destination currency")]
         public Currency DestinationCurrency
         {
             get { return (Currency)GetValue(DestinationCurrencyProperty); }
             set { SetValue(DestinationCurrencyProperty, value); }
         }
 
-        private static readonly DependencyProperty SourceCurrencyProperty =
-            DependencyProperty.Register("SourceCurrency", typeof(Currency), typeof(CurrencyConverterControl));      
+        public static readonly DependencyProperty SourceCurrencyProperty =
+            DependencyProperty.Register("SourceCurrency", typeof(Currency), typeof(CurrencyConverterControl));
 
         /// <summary>
         /// Gets the Source Currency to perform the currency conversion  
         /// </summary>
+         [Description("Value of the source currency")]
         public Currency SourceCurrency
         {
             get { return (Currency)GetValue(SourceCurrencyProperty); }
@@ -102,6 +108,7 @@ namespace CurrencyConverterControl
         /// to fill in the ComboBox element.
         /// It is initialized with a new instance of ObservableCollection<Currency>.
         /// </remarks>
+        [Description("Collection of currencies list")]
         public ObservableCollection<Currency> CurrencyList { get; private set; } = new ObservableCollection<Currency>();
 
         /// <summary>
@@ -117,12 +124,12 @@ namespace CurrencyConverterControl
         {
            
             LoadCurrencies();
-            var _currency = Template.FindName("CmbDestination", this) as ComboBox;
-            var _currencySource = Template.FindName("CmbSource", this) as ComboBox;
-            _currency.Loaded += ComboBox_Loaded;         
+            _currencyDestination = Template.FindName("CmbDestination", this) as ComboBox;
+             _currencySource = Template.FindName("CmbSource", this) as ComboBox;
+            _currencyDestination.Loaded += ComboBox_Loaded;         
             _currencySource.Loaded += ComboBox_Loaded;
-            _currency.SelectionChanged += CmbDestination_SelectionChanged;
-            _currencySource.SelectionChanged += CmbSource_SelectionChanged;
+            _currencyDestination.SelectionChanged += CmbDestination_SelectionChanged;
+            _currencySource.SelectionChanged += CmbSource_SelectionChanged;            
             InputValue = 233.3; //providing a default value           
             base.OnApplyTemplate();
         }
@@ -178,7 +185,7 @@ namespace CurrencyConverterControl
                     return;
                 }
                 OutputValue = CurrencyDataProvider.ConvertAsync(SourceCurrency.CurrencyCode, DestinationCurrency.CurrencyCode, InputValue).Result;
-
+                _currencyDestination.SelectedValue = DestinationCurrency;
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
         }
@@ -194,7 +201,7 @@ namespace CurrencyConverterControl
                     return;
                 }
                 OutputValue = CurrencyDataProvider.ConvertAsync(SourceCurrency.CurrencyCode, DestinationCurrency.CurrencyCode, InputValue).Result;
-               
+                _currencySource.SelectedValue = SourceCurrency;
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
         }
@@ -221,7 +228,7 @@ namespace CurrencyConverterControl
         /// <param name="currencyTo"></param>
         /// <param name="amount"></param>
         /// <returns>Returns the convertion value</returns>
-        public double ConvertValues(string currencyFrom, string currencyTo,double amount)
+        public double ConvertValues(string currencyFrom, string currencyTo, double amount)
         {
             try
             {
