@@ -17,7 +17,7 @@ namespace CurrencyConverterControl.Data
     internal class CurrencyDataProvider : ICurrencyDataProvider
     {
         string baseURl = "http://api.currencylayer.com/";
-        string access_key = "e6446dd83fd16c672f50407fe9cb795e";
+        string access_key = "2833017b9126749777a5ee7ddb74862f";
 
         /// <summary>
         /// This method is used to perfom the currency convertion
@@ -100,6 +100,7 @@ namespace CurrencyConverterControl.Data
         /// <param name="currencyto"></param>        
         /// <returns>Returns the value of the convertion at that moment</returns>
         /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="System.NullReferenceException">Happens when your monthly usage limit has been reached.  </exception>
         public async Task<double> GetConversionRate(string currencyfrom, string currencyto)
         {
             try
@@ -117,9 +118,12 @@ namespace CurrencyConverterControl.Data
                         string content = await response.Content.ReadAsStringAsync();
                         JObject json = JObject.Parse(content);
                         JToken quotesObject =json["quotes"];
-                        string parameterValue = String.Concat(currencyfrom, currencyto);
-                        double rate = (double)quotesObject[parameterValue];
-                        return rate;
+                        if(quotesObject != null)
+                        {
+                            string parameterValue = String.Concat(currencyfrom, currencyto);
+                            double rate = (double)quotesObject[parameterValue];
+                            return rate;
+                        }
                     }
                     else
                     {

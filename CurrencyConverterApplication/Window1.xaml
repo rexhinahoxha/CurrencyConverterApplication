@@ -18,19 +18,19 @@
         </Grid.RowDefinitions>
         <!--Currency Convertor control-->
         <DockPanel Grid.Row="0" Margin="10,10,0,10" HorizontalAlignment="Left">
-            <CurrencConverterControl:CurrencyConverterControl x:Name="currencyConvertor" DockPanel.Dock="Top" Margin="0 10 10 0"/>
+            <CurrencConverterControl:CurrencyConverterControl x:Name="currencyConvertor" DockPanel.Dock="Top" Margin="0 10 10 0" Background="Yellow" Foreground="Red" FontFamily="Comic Sans MS"/>
         </DockPanel>
         <!--Product Grid-->
         <DockPanel Grid.Row="1" >
             <DataGrid x:Name="dtProducts" AutoGenerateColumns="False" ItemsSource="{Binding ProductsList}"  IsReadOnly="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}"  />
-                    <DataGridTextColumn Header="Product Price in USD" Binding="{Binding Price}" />
-                    <DataGridTextColumn>
+                    <DataGridTextColumn Header="Product Name" Binding="{Binding ProductName}" Width="*"  />
+                    <DataGridTextColumn Header="Product Price in USD" Binding="{Binding Price}" Width="*"  />
+                    <DataGridTextColumn Width="*">
                         <DataGridTextColumn.Header>
                             <TextBlock Text="{Binding ElementName=currencyConvertor, Path=DestinationCurrency.CurrencyCode,
-                        Converter={StaticResource HeaderConverter},
-                        ConverterParameter={x:Reference currencyConvertor}}" />
+                                                      Converter={StaticResource HeaderConverter},
+                                                      ConverterParameter={x:Reference currencyConvertor}}" />
                         </DataGridTextColumn.Header>
                         <DataGridTextColumn.CellStyle>
                             <Style TargetType="DataGridCell">
@@ -40,9 +40,9 @@
                                             <TextBlock>
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource ValueConverter}">
-                                                        <Binding Path="Price" />
                                                         <Binding ElementName="currencyConvertor" Path="DestinationCurrency.CurrencyCode" 
-                                             ConverterParameter="{x:Reference currencyConvertor}" />
+                                                            ConverterParameter="{x:Reference currencyConvertor}" />
+                                                        <Binding Path="Price" StringFormat="N2" />                                                    
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
@@ -51,7 +51,6 @@
                                 </Setter>
                             </Style>
                         </DataGridTextColumn.CellStyle>
-                        
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>

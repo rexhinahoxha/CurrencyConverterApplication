@@ -14,7 +14,7 @@ namespace CurrencyControl.Data
     public class CurrencyDataProvider : ICurrencyDataProvider
     {
         string baseURl = "http://api.currencylayer.com/";
-        string access_key = "6ac174a15508ce09e2e89ad74ae79c45";
+        string access_key = "2833017b9126749777a5ee7ddb74862f";
 
         // Get currencies from API
         public async Task<CurrencyModel> GetAllCurrenciesAsync()
@@ -58,8 +58,7 @@ namespace CurrencyControl.Data
 
                 if (currencyModel != null)
                 {
-                    var _currencies = typeof(Currencies).GetProperties().ToList();
-                    //if(myDeserializedClass.currencies.ToString() )
+                    var _currencies = typeof(Currencies).GetProperties().ToList();                   
                     foreach (var _currency in _currencies)
                     {
                         Currency ccy = new Currency();
@@ -87,13 +86,11 @@ namespace CurrencyControl.Data
 
                 if (currencyModel != null)
                 {
-                    var _currencies = typeof(Currencies).GetProperties().ToList();
-                    //if(myDeserializedClass.currencies.ToString() )
+                    var _currencies = typeof(Currencies).GetProperties().ToList();                   
                     foreach (var _currency in _currencies)
                     {
                         currencyList.Add(_currency.Name);
                     }
-
                 }
             }
             catch (Exception ex)

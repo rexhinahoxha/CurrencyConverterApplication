@@ -34,7 +34,8 @@ namespace CurrencyConverterControl
         private static ICurrencyDataProvider CurrencyDataProvider;
         private ComboBox _currencyDestination;
         private ComboBox _currencySource;
-         static CurrencyConverterControl()
+        
+        static CurrencyConverterControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CurrencyConverterControl), new FrameworkPropertyMetadata(typeof(CurrencyConverterControl)));
             CurrencyDataProvider = new CurrencyDataProvider();
@@ -135,7 +136,7 @@ namespace CurrencyConverterControl
         }
 
         
-
+       
         //Method to load the currencies list
         private void LoadCurrencies()
         {
@@ -202,10 +203,11 @@ namespace CurrencyConverterControl
                 }
                 OutputValue = CurrencyDataProvider.ConvertAsync(SourceCurrency.CurrencyCode, DestinationCurrency.CurrencyCode, InputValue).Result;
                 _currencySource.SelectedValue = SourceCurrency;
+                
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
         }
-       
+
 
         #endregion
 
@@ -216,9 +218,13 @@ namespace CurrencyConverterControl
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public virtual Task LoadAsync() => Task.CompletedTask;
+        public virtual Task LoadAsync() 
+        {
+            // Call the protected LoadCurrencies method
+            LoadCurrencies();
+            return Task.CompletedTask;
+        }
         #endregion
-
         #region public functions
         /// <summary>
         /// This function is used to execute the convertion
@@ -232,7 +238,8 @@ namespace CurrencyConverterControl
         {
             try
             {
-                double conversionRate =  CurrencyDataProvider.GetConversionRate(currencyFrom, currencyTo).Result;
+
+                double conversionRate = CurrencyDataProvider.GetConversionRate(currencyFrom, currencyTo).Result;
                 var convertedValue= conversionRate * amount;
                 return convertedValue;
             }

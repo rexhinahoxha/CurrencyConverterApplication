@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CurrencyControl\CurrencyControl.csproj" />
     <ProjectReference Include="..\CurrencyConverterControl\CurrencyConverterControl.csproj" />
   </ItemGroup>
 

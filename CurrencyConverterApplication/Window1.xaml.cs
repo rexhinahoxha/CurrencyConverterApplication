@@ -34,25 +34,5 @@ namespace CurrencyConverterApplication
            
         }
 
-        //public ObservableCollection<ProductViewItem> ProductsList2 { get; private set; } = new ObservableCollection<ProductViewItem>();
-
-
-        //private void LoadProductsList(object sender, RoutedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        var ProductListTemp = _viewModel.LoadProductsList();
-        //        //foreach (var pr in ProductListTemp)
-        //        //{
-        //        //    double convertedPrice = currencyConvertor.ConvertValues("USD", pr.Price);
-        //        //    pr.PriceConverted = convertedPrice;
-        //        //    ProductsList2.Add(pr);
-
-        //        //}
-
-        //    }
-        //    catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
-        //}
-
     }
 }
