@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http.Headers;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using CurrencyConverterControl.Model;
-using Newtonsoft.Json;
-using OfficeOpenXml;
 using Newtonsoft.Json.Linq;
 
 namespace CurrencyConverterControl.Data
@@ -65,7 +61,7 @@ namespace CurrencyConverterControl.Data
         /// <exception cref="DirectoryNotFoundException">When Path of the file is not found</exception>
         public List<Currency> GetCurrenciesData()
         {
-            string filePath = @"C:\Users\User\Desktop\CurrencyConverterApplication\CurrencyConverterControl\Resources\CurrencyListXML.xml";
+            string filePath = @"CurrencyListXML.xml";
 
             // Call the method to read data
             return DeserializeFromXml(filePath);
