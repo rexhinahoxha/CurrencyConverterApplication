@@ -120,3 +120,4 @@ ehthumbs.db
 /CurrencyConverterApplicationTests/obj/CurrencyConverterApplicationTests.csproj.nuget.dgspec.json
 /CurrencyConverterApplicationTests/obj/project.assets.json
 /CurrencyConverterApplicationTests/obj/project.nuget.cache
+/CurrencyConverterControl/packages.config
