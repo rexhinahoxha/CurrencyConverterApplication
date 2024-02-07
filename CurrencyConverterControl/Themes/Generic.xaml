@@ -1,67 +1,75 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:CurrencyConverterControl">
-   <Style TargetType="{x:Type local:CurrencyConverterControl}">
+    xmlns:local="clr-namespace:CurrencyConverterControl">    
+    <Style TargetType="{x:Type local:CurrencyConverterControl}">
         <Setter Property="Background" Value="{x:Static SystemColors.WindowBrush}" />
         <Setter Property="Foreground" Value="{x:Static SystemColors.ControlTextBrush}" />
-        <Setter Property="FontFamily" Value="{x:Static SystemFonts.CaptionFontFamily}"/>
+        <Setter Property="FontFamily" Value="{x:Static SystemFonts.CaptionFontFamily}"/>        
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:CurrencyConverterControl}">
-                    <Grid>
+                    <ControlTemplate.Resources>
+                        <Style TargetType="TextBox">
+                            <Setter Property="Background" Value="{Binding Background,
+                                RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyConverterControl}}}" />
+                            <Setter Property="Foreground" Value="{Binding Foreground,
+                                RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyConverterControl}}}" />
+                            <Setter Property="FontFamily" Value="{Binding FontFamily,
+                                RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyConverterControl}}}" />
+                         </Style>
+                        <Style TargetType="ComboBox">
+                            <Setter Property="Background" Value="{Binding Background,
+                                    RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyConverterControl}}}" />
+                            <Setter Property="Foreground" Value="{Binding Foreground,
+                                    RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyConverterControl}}}" />
+                            <Setter Property="FontFamily" Value="{Binding FontFamily,
+                                    RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyConverterControl}}}" />
+                        </Style>
+                    </ControlTemplate.Resources>
+                    <Grid Background="{TemplateBinding Background}" >
+                        <Grid.Resources>
+                            <DataTemplate x:Key="currenciesList">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image  Height="10"  Source="{Binding Path=CurrencyFlag}"/>
+                                    <TextBlock Text="{Binding Path=CurrencyCode}"/>
+                                </StackPanel>
+                            </DataTemplate>                            
+                        </Grid.Resources>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="22"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-
+                       
+                        
                         <!--Input Value to convert-->
                         <TextBox  x:Name="TxtInput" Grid.Column="0" Text="{Binding InputValue, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyConverterControl}},
                             UpdateSourceTrigger=PropertyChanged , StringFormat=N2}" 
-                            HorizontalAlignment="Left" Width="130" Height="22" Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" FontFamily="{TemplateBinding FontFamily}"/>
+                            HorizontalAlignment="Left" Width="130" Height="22"/>
                         <ComboBox x:Name="CmbSource"  SelectedIndex="0"
                             ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyConverterControl}},
                             Path=CurrencyList}"
                                   SelectedItem="{Binding SourceCurrency, RelativeSource={RelativeSource 
                                   AncestorType={x:Type local:CurrencyConverterControl}}, Mode=TwoWay}"
-                                  Grid.Column="1" Height="22" Width="120" Background="{TemplateBinding Background}" 
-                                  Foreground="{TemplateBinding Foreground}" FontFamily="{TemplateBinding FontFamily}">
-                            <ComboBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image  Height="10"  Source="{Binding Path=CurrencyFlag}"/>
-                                        <TextBlock Text="{Binding Path=CurrencyCode}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
+                                  Grid.Column="1" Height="22" Width="120" Background="Transparent"                                   
+                                  ItemTemplate="{StaticResource currenciesList}">
                         </ComboBox>
-                            <!--Output value to convert-->
+                        <!--Output value to convert-->
                         <TextBox  x:Name="txtOutput" Grid.Column="2" Text="{Binding OutputValue, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyConverterControl}}, UpdateSourceTrigger=PropertyChanged}" 
-                                    IsReadOnly="True" Width="130" Height="22"  Background="{TemplateBinding Background}" Foreground="{TemplateBinding Foreground}" FontFamily="{TemplateBinding FontFamily}"/>
+                                    IsReadOnly="True" Width="130" Height="22"   Foreground="{TemplateBinding Foreground}" FontFamily="{TemplateBinding FontFamily}"/>
                         <ComboBox x:Name="CmbDestination" Grid.Column="3"  Width="120" Height="22"
                                   ItemsSource="{Binding RelativeSource={RelativeSource 
                                   AncestorType={x:Type local:CurrencyConverterControl}},Path=CurrencyList}"
                                   SelectedItem="{Binding DestinationCurrency, RelativeSource={RelativeSource 
                                   AncestorType={x:Type local:CurrencyConverterControl}}, Mode=TwoWay}" 
-                                  Background="{TemplateBinding Background}"  Foreground="{TemplateBinding Foreground}" FontFamily="{TemplateBinding FontFamily}">
-                            <ComboBox.ItemTemplate>                                
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Height="10"  Source="{Binding Path=CurrencyFlag}" />
-                                        <TextBlock Text="{Binding Path=CurrencyCode}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ComboBox.ItemTemplate>
-                        </ComboBox>                      
-                    </Grid>                 
+                                  Background="Transparent"
+                                  ItemTemplate="{StaticResource currenciesList}">
+                        </ComboBox>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
-        </Setter>       
+        </Setter>
     </Style>
 </ResourceDictionary>

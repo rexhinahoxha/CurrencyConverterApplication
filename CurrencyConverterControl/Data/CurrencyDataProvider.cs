@@ -61,7 +61,7 @@ namespace CurrencyConverterControl.Data
         /// <exception cref="DirectoryNotFoundException">When Path of the file is not found</exception>
         public List<Currency> GetCurrenciesData()
         {
-            string filePath = @"CurrencyListXML.xml";
+            string filePath = @"Resources\CurrencyListXML.xml";
 
             // Call the method to read data
             return DeserializeFromXml(filePath);

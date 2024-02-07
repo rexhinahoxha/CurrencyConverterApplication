@@ -56,7 +56,7 @@ namespace CurrencyConverterControl
             set { SetValue(InputValueProperty, value); }
         }
         public static readonly DependencyProperty InputValueProperty =
-            DependencyProperty.Register("InputValue", typeof(double), typeof(CurrencyConverterControl));
+            DependencyProperty.Register(nameof(InputValue), typeof(double), typeof(CurrencyConverterControl));
 
         /// <summary>
         /// Gets or sets the output value for the result of currency conversion within the CurrencyConverterControl.
@@ -73,10 +73,10 @@ namespace CurrencyConverterControl
         }
 
         public static readonly DependencyProperty OutputValueProperty =
-           DependencyProperty.Register("OutputValue", typeof(double), typeof(CurrencyConverterControl));
+           DependencyProperty.Register(nameof(OutputValue), typeof(double), typeof(CurrencyConverterControl));
         
         public static readonly DependencyProperty DestinationCurrencyProperty =
-           DependencyProperty.Register("DestinationCurrency", typeof(Currency), typeof(CurrencyConverterControl));
+           DependencyProperty.Register(nameof(DestinationCurrency), typeof(Currency), typeof(CurrencyConverterControl));
         /// <summary>
         /// Gets the Destination Currency to perform the currency conversion  
         /// </summary>
@@ -88,7 +88,7 @@ namespace CurrencyConverterControl
         }
 
         public static readonly DependencyProperty SourceCurrencyProperty =
-            DependencyProperty.Register("SourceCurrency", typeof(Currency), typeof(CurrencyConverterControl));
+            DependencyProperty.Register(nameof(SourceCurrency), typeof(Currency), typeof(CurrencyConverterControl));
 
         /// <summary>
         /// Gets the Source Currency to perform the currency conversion  
@@ -120,6 +120,17 @@ namespace CurrencyConverterControl
             get { return CurrencyDataProvider; }
             set { CurrencyDataProvider = value ?? throw new ArgumentNullException(nameof(value)); }
         }
+
+        public static readonly DependencyProperty CustomStyleProperty =
+            DependencyProperty.Register(nameof(CustomStyle), typeof(Style), typeof(CurrencyConverterControl));
+        /// <summary>
+        /// Define custom styles on the control
+        /// </summary>
+        public Style CustomStyle
+        {
+            get { return (Style)GetValue(CustomStyleProperty); }
+            set { SetValue(CustomStyleProperty, value); }
+        }
         #endregion
         public override void OnApplyTemplate()
         {
@@ -134,7 +145,7 @@ namespace CurrencyConverterControl
             InputValue = 233.3; //providing a default value           
             base.OnApplyTemplate();
         }
-
+         
         
        
         //Method to load the currencies list
