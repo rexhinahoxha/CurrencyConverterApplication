@@ -109,54 +109,150 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Themes\Images\aed.png" />
-    <Resource Include="Themes\Images\ars.png" />
-    <Resource Include="Themes\Images\aud.png" />
-    <Resource Include="Themes\Images\bdt.png" />
-    <Resource Include="Themes\Images\bgn.png" />
-    <Resource Include="Themes\Images\brl.png" />
-    <Resource Include="Themes\Images\cad.png" />
-    <Resource Include="Themes\Images\chf.png" />
-    <Resource Include="Themes\Images\clp.png" />
-    <Resource Include="Themes\Images\cny.png" />
-    <Resource Include="Themes\Images\cop.png" />
-    <Resource Include="Themes\Images\czk.png" />
-    <Resource Include="Themes\Images\dkk.png" />
-    <Resource Include="Themes\Images\eur.png" />
-    <Resource Include="Themes\Images\gbp.png" />
-    <Resource Include="Themes\Images\gel.png" />
-    <Resource Include="Themes\Images\hkd.png" />
-    <Resource Include="Themes\Images\hrk.png" />
-    <Resource Include="Themes\Images\huf.png" />
-    <Resource Include="Themes\Images\idr.png" />
-    <Resource Include="Themes\Images\inr.png" />
-    <Resource Include="Themes\Images\jmd.png" />
-    <Resource Include="Themes\Images\jpy.png" />
-    <Resource Include="Themes\Images\kes.png" />
-    <Resource Include="Themes\Images\krw.png" />
-    <Resource Include="Themes\Images\lkr.png" />
-    <Resource Include="Themes\Images\mad.png" />
-    <Resource Include="Themes\Images\mxn.png" />
-    <Resource Include="Themes\Images\myr.png" />
-    <Resource Include="Themes\Images\ngn.png" />
-    <Resource Include="Themes\Images\nok.png" />
-    <Resource Include="Themes\Images\npr.png" />
-    <Resource Include="Themes\Images\nzd.png" />
-    <Resource Include="Themes\Images\pen.png" />
-    <Resource Include="Themes\Images\php.png" />
-    <Resource Include="Themes\Images\pkr.png" />
-    <Resource Include="Themes\Images\pln.png" />
-    <Resource Include="Themes\Images\ron.png" />
-    <Resource Include="Themes\Images\rub.png" />
-    <Resource Include="Themes\Images\sar.png" />
-    <Resource Include="Themes\Images\sek.png" />
-    <Resource Include="Themes\Images\sgd.png" />
-    <Resource Include="Themes\Images\thb.png" />
-    <Resource Include="Themes\Images\try.png" />
-    <Resource Include="Themes\Images\uah.png" />
-    <Resource Include="Themes\Images\usd.png" />
-    <Resource Include="Themes\Images\vnd.png" />
-    <Resource Include="Themes\Images\zar.png" />
+    <Resource Include="Themes\Images\aed.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\ars.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\aud.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\bdt.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\bgn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\brl.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\cad.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\chf.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\clp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\cny.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\cop.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\czk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\dkk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\eur.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\gbp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\gel.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\hkd.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\hrk.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\huf.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\idr.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\inr.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\jmd.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\jpy.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\kes.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\krw.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\lkr.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\mad.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\mxn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\myr.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\ngn.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\nok.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\npr.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\nzd.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\pen.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\php.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\pkr.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\pln.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\ron.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\rub.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\sar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\sek.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\sgd.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\thb.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\try.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\uah.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\usd.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\vnd.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Themes\Images\zar.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Content Include="CurrencyListXML.xml">
