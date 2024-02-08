@@ -30,8 +30,8 @@ namespace CurrencyConverterApplication
             _viewModel = new MainViewModel(new ProductDataProvider());
             DataContext = _viewModel;
             _viewModel.LoadProductsList();
-            //Loaded += LoadProductsList;
-           
+            currencyConvertor.DestinationCurrency = "RUB";
+
         }
 
     }

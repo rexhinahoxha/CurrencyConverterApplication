@@ -28,7 +28,7 @@
                     <DataGridTextColumn Header="Product Price in USD" Binding="{Binding Price}" Width="*"  />
                     <DataGridTextColumn Width="*">
                         <DataGridTextColumn.Header>
-                            <TextBlock Text="{Binding ElementName=currencyConvertor, Path=DestinationCurrency.CurrencyCode,
+                            <TextBlock Text="{Binding ElementName=currencyConvertor, Path=DestinationCurrency,
                                                       Converter={StaticResource HeaderConverter},
                                                       ConverterParameter={x:Reference currencyConvertor}}" />
                         </DataGridTextColumn.Header>
@@ -40,7 +40,7 @@
                                             <TextBlock>
                                                 <TextBlock.Text>
                                                     <MultiBinding Converter="{StaticResource ValueConverter}">
-                                                        <Binding ElementName="currencyConvertor" Path="DestinationCurrency.CurrencyCode" 
+                                                        <Binding ElementName="currencyConvertor" Path="DestinationCurrency" 
                                                             ConverterParameter="{x:Reference currencyConvertor}" />
                                                         <Binding Path="Price" StringFormat="N2" />                                                    
                                                     </MultiBinding>

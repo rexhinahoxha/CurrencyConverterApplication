@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -28,13 +29,13 @@ namespace CurrencyConverterControl
     /// user interface.
     /// </summary>
     [TemplatePart(Name = "CmbDestination", Type = typeof(ComboBox))]
-    [TemplatePart(Name = "CmbSource", Type= typeof(ComboBox))]   
+    [TemplatePart(Name = "CmbSource", Type = typeof(ComboBox))]
     public class CurrencyConverterControl : Control, INotifyPropertyChanged
     {
         private static ICurrencyDataProvider CurrencyDataProvider;
         private ComboBox _currencyDestination;
         private ComboBox _currencySource;
-        
+
         static CurrencyConverterControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CurrencyConverterControl), new FrameworkPropertyMetadata(typeof(CurrencyConverterControl)));
@@ -53,7 +54,11 @@ namespace CurrencyConverterControl
         public double InputValue
         {
             get { return (double)GetValue(InputValueProperty); }
-            set { SetValue(InputValueProperty, value); }
+            set 
+            {
+                SetValue(InputValueProperty, value);
+                RaisePropertychanged();
+            }
         }
         public static readonly DependencyProperty InputValueProperty =
             DependencyProperty.Register(nameof(InputValue), typeof(double), typeof(CurrencyConverterControl));
@@ -65,39 +70,51 @@ namespace CurrencyConverterControl
         /// The OutputValue property represents the result of the currency conversion based on the provided input value.
         /// It is bound to the user interface elements where the converted amount is displayed to the user.
         /// </remarks>
-         [Description("Converted value")]
+        [Description("Converted value")]
         public double OutputValue
         {
             get { return (double)GetValue(OutputValueProperty); }
-            set { SetValue(OutputValueProperty, value); }
+            set 
+            { 
+                SetValue(OutputValueProperty, value);
+                RaisePropertychanged();
+            }
         }
 
         public static readonly DependencyProperty OutputValueProperty =
            DependencyProperty.Register(nameof(OutputValue), typeof(double), typeof(CurrencyConverterControl));
-        
+
         public static readonly DependencyProperty DestinationCurrencyProperty =
-           DependencyProperty.Register(nameof(DestinationCurrency), typeof(Currency), typeof(CurrencyConverterControl));
+           DependencyProperty.Register(nameof(DestinationCurrency), typeof(string), typeof(CurrencyConverterControl));
         /// <summary>
         /// Gets the Destination Currency to perform the currency conversion  
         /// </summary>
         [Description("Value of the destination currency")]
-        public Currency DestinationCurrency
+        public string DestinationCurrency
         {
-            get { return (Currency)GetValue(DestinationCurrencyProperty); }
-            set { SetValue(DestinationCurrencyProperty, value); }
-        }
+            get { return (string)GetValue(DestinationCurrencyProperty); }
+            set 
+            { 
+                SetValue(DestinationCurrencyProperty, value);
+                RaisePropertychanged();
+            }
+        }        
 
         public static readonly DependencyProperty SourceCurrencyProperty =
-            DependencyProperty.Register(nameof(SourceCurrency), typeof(Currency), typeof(CurrencyConverterControl));
+            DependencyProperty.Register(nameof(SourceCurrency), typeof(string), typeof(CurrencyConverterControl));
 
         /// <summary>
         /// Gets the Source Currency to perform the currency conversion  
         /// </summary>
-         [Description("Value of the source currency")]
-        public Currency SourceCurrency
+        [Description("Value of the source currency")]
+        public string SourceCurrency
         {
-            get { return (Currency)GetValue(SourceCurrencyProperty); }
-            set { SetValue(SourceCurrencyProperty, value); }
+            get { return (string)GetValue(SourceCurrencyProperty); }
+            set 
+            { 
+                SetValue(SourceCurrencyProperty, value);
+                RaisePropertychanged();
+            }
         }
 
         /// <summary>
@@ -129,20 +146,28 @@ namespace CurrencyConverterControl
         public Style CustomStyle
         {
             get { return (Style)GetValue(CustomStyleProperty); }
-            set { SetValue(CustomStyleProperty, value); }
+            set { SetValue(CustomStyleProperty, value); RaisePropertychanged(); }
         }
         #endregion
         public override void OnApplyTemplate()
         {
-           
+
             LoadCurrencies();
+            CurrencyDataProvider.GetConvertionRates();
             _currencyDestination = Template.FindName("CmbDestination", this) as ComboBox;
-             _currencySource = Template.FindName("CmbSource", this) as ComboBox;
-            _currencyDestination.Loaded += ComboBox_Loaded;         
-            _currencySource.Loaded += ComboBox_Loaded;
-            _currencyDestination.SelectionChanged += CmbDestination_SelectionChanged;
-            _currencySource.SelectionChanged += CmbSource_SelectionChanged;            
-            InputValue = 233.3; //providing a default value           
+            _currencySource = Template.FindName("CmbSource", this) as ComboBox;
+            //To Be done
+            if (_currencyDestination is null || _currencySource is null)
+            { throw new InvalidOperationException("The Combobox in the Template is not found! Please double check!"); }
+            else 
+            {
+                _currencyDestination.Loaded += ComboBox_Loaded;         
+                _currencySource.Loaded += ComboBox_Loaded;
+                _currencyDestination.SelectionChanged += CmbDestination_SelectionChanged;
+                _currencySource.SelectionChanged += CmbSource_SelectionChanged;   
+            }
+                     
+            InputValue = 233.3; //providing a default value            
             base.OnApplyTemplate();
         }
          
@@ -191,13 +216,12 @@ namespace CurrencyConverterControl
             try
             {
                 //check if all have values before going to API calculate
-                if (SourceCurrency is null|| String.IsNullOrEmpty(SourceCurrency.CurrencyCode) 
-                   || DestinationCurrency is null || String.IsNullOrEmpty(DestinationCurrency.CurrencyCode))
+                if ( String.IsNullOrEmpty(SourceCurrency)|| String.IsNullOrEmpty(DestinationCurrency))
                 {
                     return;
                 }
-                OutputValue = CurrencyDataProvider.ConvertAsync(SourceCurrency.CurrencyCode, DestinationCurrency.CurrencyCode, InputValue).Result;
-                _currencyDestination.SelectedValue = DestinationCurrency;
+                OutputValue = CurrencyDataProvider.ConvertAsync(SourceCurrency, DestinationCurrency, InputValue).Result;
+                _currencySource.SelectedValue = SourceCurrency;
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
         }
@@ -206,15 +230,13 @@ namespace CurrencyConverterControl
             try
             {
                 //check if all have values before going to API calculate
-                if (SourceCurrency is null || String.IsNullOrEmpty(SourceCurrency.CurrencyCode)
-                   || DestinationCurrency is null || String.IsNullOrEmpty(DestinationCurrency.CurrencyCode))
+                if (String.IsNullOrEmpty(SourceCurrency) || String.IsNullOrEmpty(DestinationCurrency) )
                 {
-                    MessageBox.Show("Please fill in all fields!", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
+                   return;
                 }
-                OutputValue = CurrencyDataProvider.ConvertAsync(SourceCurrency.CurrencyCode, DestinationCurrency.CurrencyCode, InputValue).Result;
-                _currencySource.SelectedValue = SourceCurrency;
-                
+                OutputValue = CurrencyDataProvider.ConvertAsync(SourceCurrency, DestinationCurrency, InputValue).Result;
+                _currencyDestination.SelectedValue = DestinationCurrency;
+
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
         }
@@ -232,7 +254,7 @@ namespace CurrencyConverterControl
         public virtual Task LoadAsync() 
         {
             // Call the protected LoadCurrencies method
-            LoadCurrencies();
+            LoadCurrencies();           
             return Task.CompletedTask;
         }
         #endregion
@@ -249,8 +271,7 @@ namespace CurrencyConverterControl
         {
             try
             {
-
-                double conversionRate = CurrencyDataProvider.GetConversionRate(currencyFrom, currencyTo).Result;
+                double conversionRate = CurrencyDataProvider.GetConversionRate(currencyFrom, currencyTo);
                 var convertedValue= conversionRate * amount;
                 return convertedValue;
             }

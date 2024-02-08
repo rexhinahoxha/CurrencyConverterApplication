@@ -21,10 +21,11 @@ namespace CurrencyConverterApplicationTests.UnitTests
 
             // Act
             converterControl.InputValue = 100;
-            converterControl.SourceCurrency = new Currency { CurrencyCode = "USD" };
-            converterControl.DestinationCurrency = new Currency { CurrencyCode = "EUR" };
+            converterControl.SourceCurrency = "USD";
+            converterControl.DestinationCurrency =  "EUR";
 
-            converterControl.OutputValue= converterControl.ConvertValues(converterControl.SourceCurrency.CurrencyCode, converterControl.DestinationCurrency.CurrencyCode,converterControl.InputValue);
+            converterControl.OutputValue= converterControl.ConvertValues(converterControl.SourceCurrency,
+                converterControl.DestinationCurrency,converterControl.InputValue);
 
             // Assert
             //If the result is Negative means that Getting Rate has failed
@@ -40,10 +41,11 @@ namespace CurrencyConverterApplicationTests.UnitTests
 
             // Act
             converterControl.InputValue = 100;
-            converterControl.SourceCurrency = new Currency { CurrencyCode = "ALL" };
-            converterControl.DestinationCurrency = new Currency { CurrencyCode = "EUR" };
+            converterControl.SourceCurrency = "ALL";
+            converterControl.DestinationCurrency = "EUR" ;
 
-            converterControl.OutputValue = converterControl.ConvertValues(converterControl.SourceCurrency.CurrencyCode, converterControl.DestinationCurrency.CurrencyCode, converterControl.InputValue);
+            converterControl.OutputValue = converterControl.ConvertValues(converterControl.SourceCurrency, 
+                                            converterControl.DestinationCurrency, converterControl.InputValue);
 
             // Assert
             //If the result is Negative means that Getting Rate has failed

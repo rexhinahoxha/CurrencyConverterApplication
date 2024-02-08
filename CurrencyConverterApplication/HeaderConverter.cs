@@ -9,13 +9,13 @@ using System.Windows;
 
 namespace CurrencyConverterApplication
 {
-   internal class HeaderConverter : IValueConverter
+    internal class HeaderConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (!String.IsNullOrEmpty(value.ToString()))
+            if (value is not null)
             {
-                string headerText =$"Price Converted in {value}" ;
+                string headerText = $"Price Converted in {value}";
                 return headerText;
             }
 
