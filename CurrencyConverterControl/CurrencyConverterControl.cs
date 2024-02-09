@@ -61,7 +61,25 @@ namespace CurrencyConverterControl
             }
         }
         public static readonly DependencyProperty InputValueProperty =
-            DependencyProperty.Register(nameof(InputValue), typeof(double), typeof(CurrencyConverterControl));
+            DependencyProperty.Register(nameof(InputValue), typeof(double), typeof(CurrencyConverterControl), 
+                                        new FrameworkPropertyMetadata(new PropertyChangedCallback(InputValue_Textchanged)));
+        // Adding a Text Change call back
+        private static void InputValue_Textchanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                CurrencyConverterControl control = (CurrencyConverterControl)d;
+                //check if all have values before going to API calculate
+                if (String.IsNullOrEmpty(control.SourceCurrency) || String.IsNullOrEmpty(control.DestinationCurrency))
+                {
+                    return;
+                }
+                control.OutputValue = CurrencyDataProvider.ConvertAsync(control.SourceCurrency,
+                                                            control.DestinationCurrency, control.InputValue).Result;                
+                control.RaisePropertychanged(InputValueProperty.Name);
+            }
+            catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
+        }
 
         /// <summary>
         /// Gets or sets the output value for the result of currency conversion within the CurrencyConverterControl.
@@ -85,7 +103,8 @@ namespace CurrencyConverterControl
            DependencyProperty.Register(nameof(OutputValue), typeof(double), typeof(CurrencyConverterControl));
 
         public static readonly DependencyProperty DestinationCurrencyProperty =
-           DependencyProperty.Register(nameof(DestinationCurrency), typeof(string), typeof(CurrencyConverterControl));
+           DependencyProperty.Register(nameof(DestinationCurrency), typeof(string), typeof(CurrencyConverterControl),
+                                new FrameworkPropertyMetadata(new PropertyChangedCallback(DestinationCurrencyChanged)));
         /// <summary>
         /// Gets the Destination Currency to perform the currency conversion  
         /// </summary>
@@ -93,15 +112,51 @@ namespace CurrencyConverterControl
         public string DestinationCurrency
         {
             get { return (string)GetValue(DestinationCurrencyProperty); }
-            set 
-            { 
+            set
+            {
                 SetValue(DestinationCurrencyProperty, value);
                 RaisePropertychanged();
             }
-        }        
+        }
+        private static void DestinationCurrencyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                CurrencyConverterControl control = (CurrencyConverterControl)d;
+                //check if all have values before going to API calculate
+                if (String.IsNullOrEmpty(control.SourceCurrency) || String.IsNullOrEmpty(control.DestinationCurrency))
+                {
+                    return;
+                }
+                control.OutputValue = CurrencyDataProvider.ConvertAsync(control.SourceCurrency,
+                                                            control.DestinationCurrency, control.InputValue).Result;
+                control.RaisePropertychanged(control.DestinationCurrency);
+            }
+            catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
+        }
+
+      
 
         public static readonly DependencyProperty SourceCurrencyProperty =
-            DependencyProperty.Register(nameof(SourceCurrency), typeof(string), typeof(CurrencyConverterControl));
+            DependencyProperty.Register(nameof(SourceCurrency), typeof(string), typeof(CurrencyConverterControl),
+                                new FrameworkPropertyMetadata(new PropertyChangedCallback(SourceCurrencyChanged)));
+
+        private static void SourceCurrencyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            try
+            {
+                CurrencyConverterControl control = (CurrencyConverterControl)d;
+                //check if all have values before going to API calculate
+                if (String.IsNullOrEmpty(control.SourceCurrency) || String.IsNullOrEmpty(control.DestinationCurrency))
+                {
+                    return;
+                }
+                control.OutputValue = CurrencyDataProvider.ConvertAsync(control.SourceCurrency,
+                                                            control.DestinationCurrency, control.InputValue).Result;               
+                control.RaisePropertychanged(control.SourceCurrency);
+            }
+            catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
+        }
 
         /// <summary>
         /// Gets the Source Currency to perform the currency conversion  
@@ -215,13 +270,7 @@ namespace CurrencyConverterControl
         {
             try
             {
-                //check if all have values before going to API calculate
-                if ( String.IsNullOrEmpty(SourceCurrency)|| String.IsNullOrEmpty(DestinationCurrency))
-                {
-                    return;
-                }
-                OutputValue = CurrencyDataProvider.ConvertAsync(SourceCurrency, DestinationCurrency, InputValue).Result;
-                _currencySource.SelectedValue = SourceCurrency;
+               _currencySource.SelectedValue = SourceCurrency;
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
         }
@@ -229,14 +278,7 @@ namespace CurrencyConverterControl
         {
             try
             {
-                //check if all have values before going to API calculate
-                if (String.IsNullOrEmpty(SourceCurrency) || String.IsNullOrEmpty(DestinationCurrency) )
-                {
-                   return;
-                }
-                OutputValue = CurrencyDataProvider.ConvertAsync(SourceCurrency, DestinationCurrency, InputValue).Result;
                 _currencyDestination.SelectedValue = DestinationCurrency;
-
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
         }

@@ -29,9 +29,8 @@ namespace CurrencyConverterApplication
             InitializeComponent();
             _viewModel = new MainViewModel(new ProductDataProvider());
             DataContext = _viewModel;
-            _viewModel.LoadProductsList();
-            currencyConvertor.DestinationCurrency = "RUB";
-
+            _viewModel.LoadProductsList();  
+          
         }
 
     }
