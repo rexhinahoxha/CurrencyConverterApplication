@@ -30,7 +30,7 @@ namespace CurrencyConverterControl
     /// </summary>
     [TemplatePart(Name = "CmbDestination", Type = typeof(ComboBox))]
     [TemplatePart(Name = "CmbSource", Type = typeof(ComboBox))]
-    public class CurrencyConverterControl : Control, INotifyPropertyChanged
+    public class CurrencyConverterControl : Control
     {
         private static ICurrencyDataProvider CurrencyDataProvider;
         private ComboBox _currencyDestination;
@@ -56,13 +56,21 @@ namespace CurrencyConverterControl
             get { return (double)GetValue(InputValueProperty); }
             set 
             {
-                SetValue(InputValueProperty, value);
-                RaisePropertychanged();
+                SetValue(InputValueProperty, value);               
             }
         }
         public static readonly DependencyProperty InputValueProperty =
             DependencyProperty.Register(nameof(InputValue), typeof(double), typeof(CurrencyConverterControl), 
-                                        new FrameworkPropertyMetadata(new PropertyChangedCallback(InputValue_Textchanged)));
+                                        new FrameworkPropertyMetadata(new PropertyChangedCallback(InputValue_Textchanged)),
+                                        validateValueCallback: new ValidateValueCallback(IsValidValue));
+
+        private static bool IsValidValue(object value)
+        {
+            double val = (double)value;
+            return !val.Equals(double.NegativeInfinity) &&
+                !val.Equals(double.PositiveInfinity);
+        }
+
         // Adding a Text Change call back
         private static void InputValue_Textchanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -75,8 +83,8 @@ namespace CurrencyConverterControl
                     return;
                 }
                 control.OutputValue = CurrencyDataProvider.ConvertAsync(control.SourceCurrency,
-                                                            control.DestinationCurrency, control.InputValue).Result;                
-                control.RaisePropertychanged(InputValueProperty.Name);
+                                                            control.DestinationCurrency, control.InputValue).Result;             
+              
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
         }
@@ -94,13 +102,22 @@ namespace CurrencyConverterControl
             get { return (double)GetValue(OutputValueProperty); }
             set 
             { 
-                SetValue(OutputValueProperty, value);
-                RaisePropertychanged();
+                SetValue(OutputValueProperty, value);                
             }
         }
 
         public static readonly DependencyProperty OutputValueProperty =
-           DependencyProperty.Register(nameof(OutputValue), typeof(double), typeof(CurrencyConverterControl));
+                            DependencyProperty.Register(nameof(OutputValue), typeof(double), typeof(CurrencyConverterControl),
+                            new FrameworkPropertyMetadata(new PropertyChangedCallback(OutputValue_Textchanged)));
+
+        private static void OutputValue_Textchanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            CurrencyConverterControl control = d as CurrencyConverterControl;
+            if (control != null)
+            {
+                control.OutputValue = (double)e.NewValue;
+            }
+        }
 
         public static readonly DependencyProperty DestinationCurrencyProperty =
            DependencyProperty.Register(nameof(DestinationCurrency), typeof(string), typeof(CurrencyConverterControl),
@@ -115,7 +132,7 @@ namespace CurrencyConverterControl
             set
             {
                 SetValue(DestinationCurrencyProperty, value);
-                RaisePropertychanged();
+                
             }
         }
         private static void DestinationCurrencyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -130,7 +147,7 @@ namespace CurrencyConverterControl
                 }
                 control.OutputValue = CurrencyDataProvider.ConvertAsync(control.SourceCurrency,
                                                             control.DestinationCurrency, control.InputValue).Result;
-                control.RaisePropertychanged(control.DestinationCurrency);
+                
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
         }
@@ -153,7 +170,7 @@ namespace CurrencyConverterControl
                 }
                 control.OutputValue = CurrencyDataProvider.ConvertAsync(control.SourceCurrency,
                                                             control.DestinationCurrency, control.InputValue).Result;               
-                control.RaisePropertychanged(control.SourceCurrency);
+                
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
         }
@@ -168,7 +185,7 @@ namespace CurrencyConverterControl
             set 
             { 
                 SetValue(SourceCurrencyProperty, value);
-                RaisePropertychanged();
+                
             }
         }
 
@@ -201,7 +218,7 @@ namespace CurrencyConverterControl
         public Style CustomStyle
         {
             get { return (Style)GetValue(CustomStyleProperty); }
-            set { SetValue(CustomStyleProperty, value); RaisePropertychanged(); }
+            set { SetValue(CustomStyleProperty, value); }
         }
         #endregion
         public override void OnApplyTemplate()
@@ -225,9 +242,14 @@ namespace CurrencyConverterControl
             InputValue = 233.3; //providing a default value            
             base.OnApplyTemplate();
         }
-         
-        
-       
+
+        public virtual Task LoadAsync()
+        {
+            // Call the protected LoadCurrencies method
+            LoadCurrencies();
+            return Task.CompletedTask;
+        }
+
         //Method to load the currencies list
         private void LoadCurrencies()
         {
@@ -286,20 +308,7 @@ namespace CurrencyConverterControl
 
         #endregion
 
-        #region Notify Property Change 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void RaisePropertychanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public virtual Task LoadAsync() 
-        {
-            // Call the protected LoadCurrencies method
-            LoadCurrencies();           
-            return Task.CompletedTask;
-        }
-        #endregion
+       
         #region public functions
         /// <summary>
         /// This function is used to execute the convertion
