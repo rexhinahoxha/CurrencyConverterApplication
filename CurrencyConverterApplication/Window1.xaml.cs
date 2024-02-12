@@ -29,8 +29,9 @@ namespace CurrencyConverterApplication
             InitializeComponent();
             _viewModel = new MainViewModel(new ProductDataProvider());
             DataContext = _viewModel;
-            _viewModel.LoadProductsList();  
-          
+            _viewModel.LoadProductsList();
+            // Testing Value in the currency Source 
+            //currencyConvertor.SourceCurrency = "ALL";
         }
 
     }

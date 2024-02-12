@@ -281,7 +281,7 @@ namespace CurrencyConverterControl
         {
             
             var comboBox = sender as ComboBox;
-            if (comboBox != null && comboBox.Items.Count > 0)
+            if (comboBox != null && comboBox.Items.Count > 0 && comboBox.SelectedIndex == -1)
             {
                 comboBox.SelectedIndex = 0; 
             }

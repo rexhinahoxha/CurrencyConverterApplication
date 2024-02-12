@@ -23,6 +23,7 @@
                             <Setter Property="FontFamily" Value="{Binding FontFamily,
                                     RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyConverterControl}}}" />
                         </Style>
+                        <local:ComboboxValueConverter  x:Key="ValueConverter"/>
                     </ControlTemplate.Resources>
                     <Grid Background="{TemplateBinding Background}" >
                         <Grid.Resources>
@@ -49,9 +50,10 @@
                             ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyConverterControl}},
                             Path=CurrencyList}"
                                   SelectedValue="{Binding SourceCurrency, RelativeSource={RelativeSource
-                                                AncestorType={x:Type local:CurrencyConverterControl}}, 
-                                                UpdateSourceTrigger=PropertyChanged}"                                    
+                                                AncestorType={x:Type local:CurrencyConverterControl}}, Converter={StaticResource ValueConverter}, 
+                                                    Mode=TwoWay}"                                    
                                             SelectedValuePath="CurrencyCode"
+                                  
                                   Grid.Column="1" Height="22" Width="120" Background="Transparent"                                   
                                   ItemTemplate="{StaticResource currenciesList}">
                         </ComboBox>
@@ -65,7 +67,8 @@
                                     AncestorType={x:Type local:CurrencyConverterControl}},Path=CurrencyList}" 
                                     SelectedValue="{Binding DestinationCurrency, RelativeSource={RelativeSource
                                      AncestorType={x:Type local:CurrencyConverterControl}}, 
-                                     UpdateSourceTrigger=PropertyChanged}"                                    
+                                     Converter={StaticResource ValueConverter}, 
+                                                    Mode=TwoWay}"                                   
                                     SelectedValuePath="CurrencyCode"
                                     ItemTemplate="{StaticResource currenciesList}">                                                                                             
                         </ComboBox>
