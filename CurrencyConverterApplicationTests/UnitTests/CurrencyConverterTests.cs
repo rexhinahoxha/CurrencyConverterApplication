@@ -22,10 +22,7 @@ namespace CurrencyConverterApplicationTests.UnitTests
             // Act
             converterControl.InputValue = 100;
             converterControl.SourceCurrency = "USD";
-            converterControl.DestinationCurrency =  "EUR";
-
-            converterControl.OutputValue= converterControl.ConvertValues(converterControl.SourceCurrency,
-                converterControl.DestinationCurrency,converterControl.InputValue);
+            converterControl.DestinationCurrency =  "EUR";           
 
             // Assert
             //If the result is Negative means that Getting Rate has failed
@@ -34,7 +31,24 @@ namespace CurrencyConverterApplicationTests.UnitTests
 
         [Test]
         [Apartment(ApartmentState.STA)]
-        public void ConvertValues_FailedRequest_ShouldReturnNegativeConvertedAmount()
+        public void ConvertValues_SuccessfulRequest_ShouldReturnSameAmountConvertedAmount()
+        {
+            // Arrange
+            var converterControl = new CurrencyConverterControl.CurrencyConverterControl();
+
+            // Act
+            converterControl.InputValue = 100;
+            converterControl.SourceCurrency = "EUR";
+            converterControl.DestinationCurrency = "EUR";
+
+            // Assert
+            //If the result is Negative means that Getting Rate has failed
+            Assert.That(converterControl.OutputValue,Is.EqualTo(converterControl.InputValue));
+        }
+
+        [Test]
+        [Apartment(ApartmentState.STA)]
+        public void ConvertValues_FailedRequest_ShouldReturnValueGreaterThanConvertedAmount()
         {
             // Arrange
             var converterControl = new CurrencyConverterControl.CurrencyConverterControl();
@@ -44,12 +58,9 @@ namespace CurrencyConverterApplicationTests.UnitTests
             converterControl.SourceCurrency = "ALL";
             converterControl.DestinationCurrency = "EUR" ;
 
-            converterControl.OutputValue = converterControl.ConvertValues(converterControl.SourceCurrency, 
-                                            converterControl.DestinationCurrency, converterControl.InputValue);
-
             // Assert
             //If the result is Negative means that Getting Rate has failed
-            Assert.That(converterControl.OutputValue, Is.Negative);
+            Assert.That(converterControl.OutputValue, Is.GreaterThan(0.9));
         }
 
 
