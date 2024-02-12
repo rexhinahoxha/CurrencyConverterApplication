@@ -13,7 +13,7 @@
                             <Setter Property="Foreground" Value="{Binding Foreground,
                                 RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyConverterControl}}}" />
                             <Setter Property="FontFamily" Value="{Binding FontFamily,
-                                RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyConverterControl}}}" />
+                                RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyConverterControl}}}" />                            
                          </Style>
                         <Style TargetType="ComboBox">
                             <Setter Property="Background" Value="{Binding Background,
@@ -43,14 +43,12 @@
                        
                         
                         <!--Input Value to convert-->
-                        <TextBox  x:Name="TxtInput" Grid.Column="0" Text="{Binding InputValue, RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyConverterControl}},
-                            UpdateSourceTrigger=PropertyChanged , StringFormat=N2}" 
-                            HorizontalAlignment="Left" Width="130" Height="22"/>
+                        <TextBox  x:Name="TxtInput" Grid.Column="0" Text="{Binding InputValue, RelativeSource={RelativeSource TemplatedParent},UpdateSourceTrigger=PropertyChanged , StringFormat=N2}" 
+                                HorizontalAlignment="Left" Width="130" Height="22"/>
                         <ComboBox x:Name="CmbSource"  SelectedIndex="0"
-                            ItemsSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyConverterControl}},
+                            ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent},
                             Path=CurrencyList}"
-                                  SelectedValue="{Binding SourceCurrency, RelativeSource={RelativeSource
-                                                AncestorType={x:Type local:CurrencyConverterControl}}, Converter={StaticResource ValueConverter}, 
+                                  SelectedValue="{Binding SourceCurrency, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource ValueConverter}, 
                                                     Mode=TwoWay}"                                    
                                             SelectedValuePath="CurrencyCode"
                                   
@@ -59,14 +57,12 @@
                         </ComboBox>
                         <!--Output value to convert-->
                         <TextBox  x:Name="txtOutput" Grid.Column="2" Text="{Binding OutputValue,
-                                  RelativeSource={RelativeSource AncestorType={x:Type local:CurrencyConverterControl}},
+                                  RelativeSource={RelativeSource TemplatedParent},
                                   UpdateSourceTrigger=PropertyChanged}" 
                                     IsReadOnly="True" Width="130" Height="22"/>
                         <ComboBox x:Name="CmbDestination" Grid.Column="3"  Width="120" Height="22"
-                                  ItemsSource="{Binding RelativeSource={RelativeSource 
-                                    AncestorType={x:Type local:CurrencyConverterControl}},Path=CurrencyList}" 
-                                    SelectedValue="{Binding DestinationCurrency, RelativeSource={RelativeSource
-                                     AncestorType={x:Type local:CurrencyConverterControl}}, 
+                                  ItemsSource="{Binding RelativeSource={RelativeSource TemplatedParent},Path=CurrencyList}" 
+                                    SelectedValue="{Binding DestinationCurrency,RelativeSource={RelativeSource TemplatedParent}, 
                                      Converter={StaticResource ValueConverter}, 
                                                     Mode=TwoWay}"                                   
                                     SelectedValuePath="CurrencyCode"

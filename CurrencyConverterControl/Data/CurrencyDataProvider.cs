@@ -25,7 +25,7 @@ namespace CurrencyConverterControl.Data
         /// <param name="amount">This parameter gets the value which needs to be converted</param>
         /// <returns></returns>
         /// <exception cref="HttpRequestException"></exception>
-        public async Task<double> ConvertAsync(string currencyfrom, string currencyto, double amount)
+        public double Convert(string currencyfrom, string currencyto, double amount)
         {
             try
             {
@@ -36,11 +36,11 @@ namespace CurrencyConverterControl.Data
                     httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                     string endpoint = String.Format("{0}convert?access_key={1}&from={2}&to={3}&amount={4}", baseURl, access_key, currencyfrom, currencyto, amount);
-                    HttpResponseMessage response = await httpClient.GetAsync(endpoint).ConfigureAwait(false);
+                    HttpResponseMessage response =  httpClient.GetAsync(endpoint).Result;
 
                     if (response.IsSuccessStatusCode)
                     {
-                        string content = await response.Content.ReadAsStringAsync();
+                        string content =  response.Content.ReadAsStringAsync().Result;
                         JObject json = JObject.Parse(content);
                         double value = (double)json["result"];                        
                         return value;

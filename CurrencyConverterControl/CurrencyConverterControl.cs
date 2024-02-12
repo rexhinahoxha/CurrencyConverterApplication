@@ -82,8 +82,8 @@ namespace CurrencyConverterControl
                 {
                     return;
                 }
-                control.OutputValue = CurrencyDataProvider.ConvertAsync(control.SourceCurrency,
-                                                            control.DestinationCurrency, control.InputValue).Result;             
+                control.OutputValue = CurrencyDataProvider.Convert(control.SourceCurrency,
+                                                            control.DestinationCurrency, control.InputValue);             
               
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
@@ -145,8 +145,8 @@ namespace CurrencyConverterControl
                 {
                     return;
                 }
-                control.OutputValue = CurrencyDataProvider.ConvertAsync(control.SourceCurrency,
-                                                            control.DestinationCurrency, control.InputValue).Result;
+                control.OutputValue = CurrencyDataProvider.Convert(control.SourceCurrency,
+                                                            control.DestinationCurrency, control.InputValue);
                 
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
@@ -168,8 +168,8 @@ namespace CurrencyConverterControl
                 {
                     return;
                 }
-                control.OutputValue = CurrencyDataProvider.ConvertAsync(control.SourceCurrency,
-                                                            control.DestinationCurrency, control.InputValue).Result;               
+                control.OutputValue = CurrencyDataProvider.Convert(control.SourceCurrency,
+                                                            control.DestinationCurrency, control.InputValue);               
                 
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
@@ -226,6 +226,18 @@ namespace CurrencyConverterControl
 
             LoadCurrencies();
             CurrencyDataProvider.GetConvertionRates();
+            // Check if existing controls are not null and unsubscribe from events
+            if (_currencyDestination != null)
+            {
+                _currencyDestination.Loaded -= ComboBox_Loaded;
+                _currencyDestination.SelectionChanged -= CmbDestination_SelectionChanged;
+            }
+
+            if (_currencySource != null)
+            {
+                _currencySource.Loaded -= ComboBox_Loaded;
+                _currencySource.SelectionChanged -= CmbSource_SelectionChanged;
+            }
             _currencyDestination = Template.FindName("CmbDestination", this) as ComboBox;
             _currencySource = Template.FindName("CmbSource", this) as ComboBox;
             //To Be done

@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace CurrencyConverterControl
 {
-    internal class ComboboxValueConverter : IValueConverter
+    public class ComboboxValueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

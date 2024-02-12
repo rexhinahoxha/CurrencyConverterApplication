@@ -10,7 +10,7 @@ namespace CurrencyConverterControl.Data
     public interface ICurrencyDataProvider
     {
         List<Currency> GetCurrenciesData();
-        Task<double> ConvertAsync(string currencyfrom, string currencyto, double amount);
+        double Convert(string currencyfrom, string currencyto, double amount);
         double GetConversionRate(string currencyfrom, string currencyto);
         void GetConvertionRates();
     }
