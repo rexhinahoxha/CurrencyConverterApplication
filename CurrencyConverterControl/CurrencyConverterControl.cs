@@ -202,13 +202,28 @@ namespace CurrencyConverterControl
         [Description("Collection of currencies list")]
         public ObservableCollection<Currency> CurrencyList { get; private set; } = new ObservableCollection<Currency>();
 
+        private ICurrencyDataProvider _currencyDataProvider;
         /// <summary>
         /// Property to allow replacement of the currency converter
         /// </summary>
         public ICurrencyDataProvider CurrencyConverter
         {
-            get { return CurrencyDataProvider; }
-            set { CurrencyDataProvider = value ?? throw new ArgumentNullException(nameof(value)); }
+            get { return _currencyDataProvider; }
+            set
+            {
+                if (_currencyDataProvider != value)
+                {
+                    ICurrencyDataProvider previousProvider = _currencyDataProvider;
+                    _currencyDataProvider = value ?? throw new ArgumentNullException(nameof(value));
+                    OnCurrencyConverterChanged(previousProvider, _currencyDataProvider);
+                }
+            }
+        }
+        public event EventHandler<CurrencyConverterChangedEventArgs> CurrencyConverterChanged;
+
+        protected virtual void OnCurrencyConverterChanged(ICurrencyDataProvider previousProvider, ICurrencyDataProvider newProvider)
+        {
+            CurrencyConverterChanged?.Invoke(this, new CurrencyConverterChangedEventArgs(previousProvider, newProvider));
         }
 
         public static readonly DependencyProperty TextBoxStyleProperty =
@@ -338,5 +353,17 @@ namespace CurrencyConverterControl
             return -1; 
         }
         #endregion
+    }
+
+    public class CurrencyConverterChangedEventArgs : EventArgs
+    {
+        public ICurrencyDataProvider PreviousProvider { get; }
+        public ICurrencyDataProvider NewProvider { get; }
+
+        public CurrencyConverterChangedEventArgs(ICurrencyDataProvider previousProvider, ICurrencyDataProvider newProvider)
+        {
+            PreviousProvider = previousProvider;
+            NewProvider = newProvider;
+        }
     }
 }
