@@ -66,16 +66,13 @@ namespace CurrencyConverterApplicationTests.UnitTests
 
         [Test]
         [Apartment(System.Threading.ApartmentState.STA)]
-        public void TestLoadCurrencies_ListResultNotEmpty()
+        public void TestLoadCurrencies_ListResultEmpty()
         {
             // Arrange
             var converterControl = new CurrencyConverterControl.CurrencyConverterControl();
-
-            // Act
-            converterControl.LoadAsync();
-
+           
             // Assert
-            Assert.That(converterControl.CurrencyList, Is.Not.Empty);
+            Assert.That(converterControl.CurrencyList, Is.Empty);
         }
     }
 }

@@ -30,6 +30,7 @@ namespace CurrencyConverterControl
     /// </summary>
     [TemplatePart(Name = "CmbDestination", Type = typeof(ComboBox))]
     [TemplatePart(Name = "CmbSource", Type = typeof(ComboBox))]
+    [StyleTypedProperty(Property = "TextBoxStyle",  StyleTargetType = typeof(TextBox))]
     public class CurrencyConverterControl : Control
     {
         private static ICurrencyDataProvider CurrencyDataProvider;
@@ -61,7 +62,7 @@ namespace CurrencyConverterControl
         }
         public static readonly DependencyProperty InputValueProperty =
             DependencyProperty.Register(nameof(InputValue), typeof(double), typeof(CurrencyConverterControl), 
-                                        new FrameworkPropertyMetadata(new PropertyChangedCallback(InputValue_Textchanged)),
+                                        new FrameworkPropertyMetadata(new PropertyChangedCallback(InputValue_TextChanged)),
                                         validateValueCallback: new ValidateValueCallback(IsValidValue));
 
         private static bool IsValidValue(object value)
@@ -72,7 +73,7 @@ namespace CurrencyConverterControl
         }
 
         // Adding a Text Change call back
-        private static void InputValue_Textchanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void InputValue_TextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             try
             {
@@ -210,15 +211,15 @@ namespace CurrencyConverterControl
             set { CurrencyDataProvider = value ?? throw new ArgumentNullException(nameof(value)); }
         }
 
-        public static readonly DependencyProperty CustomStyleProperty =
-            DependencyProperty.Register(nameof(CustomStyle), typeof(Style), typeof(CurrencyConverterControl));
+        public static readonly DependencyProperty TextBoxStyleProperty =
+            DependencyProperty.Register(nameof(TextBoxStyle), typeof(Style), typeof(CurrencyConverterControl));
         /// <summary>
         /// Define custom styles on the control
         /// </summary>
-        public Style CustomStyle
+        public Style TextBoxStyle
         {
-            get { return (Style)GetValue(CustomStyleProperty); }
-            set { SetValue(CustomStyleProperty, value); }
+            get { return (Style)GetValue(TextBoxStyleProperty); }
+            set { SetValue(TextBoxStyleProperty, value); }
         }
         #endregion
         public override void OnApplyTemplate()
@@ -255,12 +256,7 @@ namespace CurrencyConverterControl
             base.OnApplyTemplate();
         }
 
-        public virtual Task LoadAsync()
-        {
-            // Call the protected LoadCurrencies method
-            LoadCurrencies();
-            return Task.CompletedTask;
-        }
+       
 
         //Method to load the currencies list
         private void LoadCurrencies()
