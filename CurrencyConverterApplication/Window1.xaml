@@ -32,25 +32,13 @@
                                                       Converter={StaticResource HeaderConverter},
                                                       ConverterParameter={x:Reference currencyConvertor}}" />
                         </DataGridTextColumn.Header>
-                        <DataGridTextColumn.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="DataGridCell">
-                                            <TextBlock>
-                                                <TextBlock.Text>
-                                                    <MultiBinding Converter="{StaticResource ValueConverter}">
-                                                        <Binding ElementName="currencyConvertor" Path="DestinationCurrency" 
-                                                            ConverterParameter="{x:Reference currencyConvertor}" />
-                                                        <Binding Path="Price" StringFormat="N2" />                                                    
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </DataGridTextColumn.CellStyle>
+                        <DataGridTextColumn.Binding>                            
+                             <MultiBinding Converter="{StaticResource ValueConverter}">
+                                  <Binding ElementName="currencyConvertor" Path="DestinationCurrency" 
+                                 ConverterParameter="{x:Reference currencyConvertor}" />
+                                      <Binding Path="Price" StringFormat="N2" />
+                                    </MultiBinding>                                              
+                        </DataGridTextColumn.Binding>                        
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
