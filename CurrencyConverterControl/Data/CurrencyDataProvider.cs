@@ -14,13 +14,14 @@ namespace CurrencyConverterControl.Data
 {
     internal class CurrencyDataProvider : ICurrencyDataProvider
     {
-        private readonly IHttpClientFactory _httpClientFactory = null!;
+        private static readonly HttpClient httpClient = new HttpClient();
         string baseURl = "http://api.currencylayer.com/";
         string access_key = "63da635cc4fff2e738aeb69cd8de0e91";
         Dictionary<string, double> exchangeRates = new Dictionary<string, double>();
-        public CurrencyDataProvider(
-        IHttpClientFactory httpClientFactory) =>
-        (_httpClientFactory) = (httpClientFactory);
+        public CurrencyDataProvider()
+        {
+           
+        }
 
         /// <summary>
         /// This method is used to perfom the currency convertion
@@ -35,8 +36,8 @@ namespace CurrencyConverterControl.Data
             try
             {
                 if (currencyfrom == currencyto) { return amount; }
-                using (HttpClient httpClient = _httpClientFactory.CreateClient(""))
-                {
+               
+               
                     httpClient.DefaultRequestHeaders.Accept.Clear();
                     httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -54,7 +55,7 @@ namespace CurrencyConverterControl.Data
                     {
                         Console.WriteLine("Request failed with status code: " + response.StatusCode);
                     }
-                }
+                
             }
             catch (Exception ex)
             {
@@ -130,8 +131,7 @@ namespace CurrencyConverterControl.Data
         {
             try
             {
-                using (HttpClient httpClient = _httpClientFactory.CreateClient(""))
-                {
+                
                     httpClient.DefaultRequestHeaders.Accept.Clear();
                     httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -152,7 +152,7 @@ namespace CurrencyConverterControl.Data
                     {
                         Console.WriteLine("Request failed with status code: " + response.StatusCode);
                     }
-                }
+                
             }
             catch (Exception ex)
             {

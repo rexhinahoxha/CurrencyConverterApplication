@@ -40,7 +40,7 @@ namespace CurrencyConverterControl
         static CurrencyConverterControl()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(CurrencyConverterControl), new FrameworkPropertyMetadata(typeof(CurrencyConverterControl)));
-            CurrencyDataProvider = new CurrencyDataProvider( new HttpClientFactory());
+            CurrencyDataProvider = new CurrencyDataProvider();
         }
 
         #region Dependency Properties
