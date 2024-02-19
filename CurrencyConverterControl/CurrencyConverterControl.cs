@@ -84,7 +84,8 @@ namespace CurrencyConverterControl
             get { return (double)GetValue(InputValueProperty); }
             set 
             {
-                SetValue(InputValueProperty, value);               
+                SetValue(InputValueProperty, value);
+                OnInputValueChanged(this, new ValueChangedEventArgs(value));
             }
         }
         public static readonly DependencyProperty InputValueProperty =
@@ -109,7 +110,16 @@ namespace CurrencyConverterControl
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
         }
-       
+
+        // Define CLR events for input and output value changes
+        public event EventHandler<ValueChangedEventArgs> InputValueChanged;
+
+        private void OnInputValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            InputValueChanged?.Invoke(sender, e);
+            PerformCalculation(this);
+        }
+        
         /// <summary>
         /// Gets or sets the output value for the result of currency conversion within the CurrencyConverterControl.
         /// </summary>
@@ -121,7 +131,7 @@ namespace CurrencyConverterControl
         public double OutputValue
         {
             get { return (double)GetValue(OutputValueProperty); }
-            set 
+           private set 
             { 
                 SetValue(OutputValueProperty, value);                
             }
@@ -397,4 +407,16 @@ namespace CurrencyConverterControl
             NewProvider = newProvider;
         }
     }
+
+    // using for input and output value changes
+    public class ValueChangedEventArgs : EventArgs
+    {
+        public double NewValue { get; }
+        
+        public ValueChangedEventArgs(double newValue)
+        {
+            NewValue = newValue;
+        }
+    }
+
 }
