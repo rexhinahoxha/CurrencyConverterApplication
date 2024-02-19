@@ -20,6 +20,7 @@ namespace CurrencyConverterApplicationTests.UnitTests
             var converterControl = new CurrencyConverterControl.CurrencyConverterControl();
 
             // Act
+            converterControl.OnApplyTemplate();
             converterControl.InputValue = 100;
             converterControl.SourceCurrency = "USD";
             converterControl.DestinationCurrency =  "EUR";           
@@ -37,6 +38,7 @@ namespace CurrencyConverterApplicationTests.UnitTests
             var converterControl = new CurrencyConverterControl.CurrencyConverterControl();
 
             // Act
+            converterControl.OnApplyTemplate();
             converterControl.InputValue = 100;
             converterControl.SourceCurrency = "EUR";
             converterControl.DestinationCurrency = "EUR";
@@ -54,6 +56,7 @@ namespace CurrencyConverterApplicationTests.UnitTests
             var converterControl = new CurrencyConverterControl.CurrencyConverterControl();
 
             // Act
+            converterControl.OnApplyTemplate();
             converterControl.InputValue = 100;
             converterControl.SourceCurrency = "ALL";
             converterControl.DestinationCurrency = "EUR" ;

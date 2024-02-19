@@ -109,7 +109,7 @@ namespace CurrencyConverterControl
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
         }
-
+       
         /// <summary>
         /// Gets or sets the output value for the result of currency conversion within the CurrencyConverterControl.
         /// </summary>
@@ -129,14 +129,16 @@ namespace CurrencyConverterControl
 
         public static readonly DependencyProperty OutputValueProperty =
                             DependencyProperty.Register(nameof(OutputValue), typeof(double), typeof(CurrencyConverterControl),
-                            new FrameworkPropertyMetadata(new PropertyChangedCallback(OutputValue_Textchanged)));
+                            new FrameworkPropertyMetadata(new PropertyChangedCallback(OutputValue_Textchanged)),
+                                                validateValueCallback: new ValidateValueCallback(IsValidValue));
 
         private static void OutputValue_Textchanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             CurrencyConverterControl control = d as CurrencyConverterControl;
-            if (control != null)
-            {
-                control.OutputValue = (double)e.NewValue;
+            if (control != null && CurrencyConverter is  null)
+            {                
+                //if Currency Converter is null, OnApplyTemplate() not entered yet
+                control.InputValue = CurrencyDataProvider.Convert(control.DestinationCurrency, control.SourceCurrency, (double)e.NewValue);
             }
         }
 
@@ -249,7 +251,7 @@ namespace CurrencyConverterControl
                     SubscribeToEvents(_currencySource, ComboBox_Loaded, CmbSource_SelectionChanged);
                 }
 
-                InputValue = 233.3;
+               if( InputValue==0) InputValue=233.3 ;
             }
             catch (Exception ex)
             {
@@ -315,10 +317,12 @@ namespace CurrencyConverterControl
             try
             {
                 //check if all have values before going to API calculate
-                if (String.IsNullOrEmpty(control.SourceCurrency) || String.IsNullOrEmpty(control.DestinationCurrency))
+                if (String.IsNullOrEmpty(control.SourceCurrency) || String.IsNullOrEmpty(control.DestinationCurrency)
+                    || control.InputValue==0 || CurrencyConverter is null)
                 {
                     return;
                 }
+                
                 control.OutputValue = CurrencyConverter.Convert(control.SourceCurrency,
                                                             control.DestinationCurrency, control.InputValue);
             }

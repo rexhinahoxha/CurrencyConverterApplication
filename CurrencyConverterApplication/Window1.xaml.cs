@@ -30,8 +30,7 @@ namespace CurrencyConverterApplication
             _viewModel = new MainViewModel(new ProductDataProvider());
             DataContext = _viewModel;
             _viewModel.LoadProductsList();
-            // Testing Value in the currency Source 
-            //currencyConvertor.SourceCurrency = "ALL";
+            
         }
 
     }
