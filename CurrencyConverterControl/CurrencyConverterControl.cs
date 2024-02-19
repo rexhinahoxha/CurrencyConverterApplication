@@ -44,6 +44,33 @@ namespace CurrencyConverterControl
         }
 
         #region Dependency Properties
+
+        private static ICurrencyDataProvider _currencyDataProvider;
+        /// <summary>
+        /// Property to allow replacement of the currency converter
+        /// </summary>
+        public static  ICurrencyDataProvider CurrencyConverter
+        {
+            get { return _currencyDataProvider; }
+            set
+            {
+                if (_currencyDataProvider != value)
+                {
+                    ICurrencyDataProvider previousProvider = _currencyDataProvider;
+                    _currencyDataProvider = value ?? throw new ArgumentNullException(nameof(value));
+                    // Create an instance of CurrencyConverterControl to call the method
+                    CurrencyConverterControl instance = new CurrencyConverterControl();
+                    instance.OnCurrencyConverterChanged(previousProvider, _currencyDataProvider);
+                }
+            }
+        }
+        public event EventHandler<CurrencyConverterChangedEventArgs> CurrencyConverterChanged;
+
+        protected virtual void OnCurrencyConverterChanged(ICurrencyDataProvider previousProvider, ICurrencyDataProvider newProvider)
+        {
+            CurrencyConverterChanged?.Invoke(null, new CurrencyConverterChangedEventArgs(previousProvider, newProvider));
+        }
+
         /// <summary>
         /// Gets or sets the input value for currency conversion within the CurrencyConverterControl.
         /// </summary>
@@ -78,14 +105,7 @@ namespace CurrencyConverterControl
             try
             {
                 CurrencyConverterControl control = (CurrencyConverterControl)d;
-                //check if all have values before going to API calculate
-                if (String.IsNullOrEmpty(control.SourceCurrency) || String.IsNullOrEmpty(control.DestinationCurrency))
-                {
-                    return;
-                }
-                control.OutputValue = CurrencyDataProvider.Convert(control.SourceCurrency,
-                                                            control.DestinationCurrency, control.InputValue);             
-              
+                control.PerformCalculation(control);
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
         }
@@ -141,14 +161,8 @@ namespace CurrencyConverterControl
             try
             {
                 CurrencyConverterControl control = (CurrencyConverterControl)d;
-                //check if all have values before going to API calculate
-                if (String.IsNullOrEmpty(control.SourceCurrency) || String.IsNullOrEmpty(control.DestinationCurrency))
-                {
-                    return;
-                }
-                control.OutputValue = CurrencyDataProvider.Convert(control.SourceCurrency,
-                                                            control.DestinationCurrency, control.InputValue);
-                
+                control.PerformCalculation(control);
+
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
         }
@@ -164,14 +178,7 @@ namespace CurrencyConverterControl
             try
             {
                 CurrencyConverterControl control = (CurrencyConverterControl)d;
-                //check if all have values before going to API calculate
-                if (String.IsNullOrEmpty(control.SourceCurrency) || String.IsNullOrEmpty(control.DestinationCurrency))
-                {
-                    return;
-                }
-                control.OutputValue = CurrencyDataProvider.Convert(control.SourceCurrency,
-                                                            control.DestinationCurrency, control.InputValue);               
-                
+                control.PerformCalculation(control);
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
         }
@@ -200,31 +207,7 @@ namespace CurrencyConverterControl
         /// It is initialized with a new instance of ObservableCollection<Currency>.
         /// </remarks>
         [Description("Collection of currencies list")]
-        public ObservableCollection<Currency> CurrencyList { get; private set; } = new ObservableCollection<Currency>();
-
-        private ICurrencyDataProvider _currencyDataProvider;
-        /// <summary>
-        /// Property to allow replacement of the currency converter
-        /// </summary>
-        public ICurrencyDataProvider CurrencyConverter
-        {
-            get { return _currencyDataProvider; }
-            set
-            {
-                if (_currencyDataProvider != value)
-                {
-                    ICurrencyDataProvider previousProvider = _currencyDataProvider;
-                    _currencyDataProvider = value ?? throw new ArgumentNullException(nameof(value));
-                    OnCurrencyConverterChanged(previousProvider, _currencyDataProvider);
-                }
-            }
-        }
-        public event EventHandler<CurrencyConverterChangedEventArgs> CurrencyConverterChanged;
-
-        protected virtual void OnCurrencyConverterChanged(ICurrencyDataProvider previousProvider, ICurrencyDataProvider newProvider)
-        {
-            CurrencyConverterChanged?.Invoke(this, new CurrencyConverterChangedEventArgs(previousProvider, newProvider));
-        }
+        public ObservableCollection<Currency> CurrencyList { get; private set; } = new ObservableCollection<Currency>();        
 
         public static readonly DependencyProperty TextBoxStyleProperty =
             DependencyProperty.Register(nameof(TextBoxStyle), typeof(Style), typeof(CurrencyConverterControl));
@@ -239,39 +222,67 @@ namespace CurrencyConverterControl
         #endregion
         public override void OnApplyTemplate()
         {
+            try
+            {
+                // Set currency converter and load currencies
+                CurrencyConverter = CurrencyDataProvider;
+                LoadCurrencies();
+                CurrencyConverter.GetConvertionRates();
 
-            LoadCurrencies();
-            CurrencyDataProvider.GetConvertionRates();
-            // Check if existing controls are not null and unsubscribe from events
-            if (_currencyDestination != null)
+                // Unsubscribe from events if controls are not null
+                UnsubscribeFromEvents(_currencyDestination, ComboBox_Loaded, CmbDestination_SelectionChanged);
+                UnsubscribeFromEvents(_currencySource, ComboBox_Loaded, CmbSource_SelectionChanged);
+
+                // Find currency destination and source controls in the template
+                _currencyDestination = Template.FindName("CmbDestination", this) as ComboBox;
+                _currencySource = Template.FindName("CmbSource", this) as ComboBox;
+
+                // Check if controls were found
+                if (_currencyDestination is null || _currencySource is null)
+                {
+                    throw new InvalidOperationException("The Combobox in the Template is not found! Please double check!");
+                }
+                else
+                {
+                    // Subscribe to events
+                    SubscribeToEvents(_currencyDestination, ComboBox_Loaded, CmbDestination_SelectionChanged);
+                    SubscribeToEvents(_currencySource, ComboBox_Loaded, CmbSource_SelectionChanged);
+                }
+
+                InputValue = 233.3;
+            }
+            catch (Exception ex)
             {
-                _currencyDestination.Loaded -= ComboBox_Loaded;
-                _currencyDestination.SelectionChanged -= CmbDestination_SelectionChanged;
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+            finally
+            {              
+                base.OnApplyTemplate();
             }
 
-            if (_currencySource != null)
-            {
-                _currencySource.Loaded -= ComboBox_Loaded;
-                _currencySource.SelectionChanged -= CmbSource_SelectionChanged;
-            }
-            _currencyDestination = Template.FindName("CmbDestination", this) as ComboBox;
-            _currencySource = Template.FindName("CmbSource", this) as ComboBox;
-            //To Be done
-            if (_currencyDestination is null || _currencySource is null)
-            { throw new InvalidOperationException("The Combobox in the Template is not found! Please double check!"); }
-            else 
-            {
-                _currencyDestination.Loaded += ComboBox_Loaded;         
-                _currencySource.Loaded += ComboBox_Loaded;
-                _currencyDestination.SelectionChanged += CmbDestination_SelectionChanged;
-                _currencySource.SelectionChanged += CmbSource_SelectionChanged;   
-            }
-                     
-            InputValue = 233.3; //providing a default value            
-            base.OnApplyTemplate();
         }
 
-       
+        // Method to unsubscribe from events if control is not null
+        void UnsubscribeFromEvents(ComboBox control, RoutedEventHandler loadedHandler, SelectionChangedEventHandler selectionChangedHandler)
+        {
+            if (control != null)
+            {
+                control.Loaded -= loadedHandler;
+                control.SelectionChanged -= selectionChangedHandler;
+            }
+        }
+
+        // Method to subscribe to events if control is not null
+        void SubscribeToEvents(ComboBox control, RoutedEventHandler loadedHandler, SelectionChangedEventHandler selectionChangedHandler)
+        {
+            if (control != null)
+            {
+                control.Loaded += loadedHandler;
+                control.SelectionChanged += selectionChangedHandler;
+            }
+        }
+
+
 
         //Method to load the currencies list
         private void LoadCurrencies()
@@ -282,7 +293,7 @@ namespace CurrencyConverterControl
                 {
                     return;
                 }
-                var currencies = CurrencyDataProvider.GetCurrenciesData();
+                var currencies = CurrencyConverter.GetCurrenciesData();
 
                 if (currencies.Any())
                 {
@@ -298,6 +309,22 @@ namespace CurrencyConverterControl
 
         }
 
+        //
+        private void PerformCalculation(CurrencyConverterControl control)
+        {
+            try
+            {
+                //check if all have values before going to API calculate
+                if (String.IsNullOrEmpty(control.SourceCurrency) || String.IsNullOrEmpty(control.DestinationCurrency))
+                {
+                    return;
+                }
+                control.OutputValue = CurrencyConverter.Convert(control.SourceCurrency,
+                                                            control.DestinationCurrency, control.InputValue);
+            }
+            catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
+            
+        }
         #region Events
         //Method to set the default value after the ComboBox is loaded
         private void ComboBox_Loaded(object sender, RoutedEventArgs e)
@@ -345,7 +372,7 @@ namespace CurrencyConverterControl
         {
             try
             {
-                double conversionRate = CurrencyDataProvider.GetConversionRate(currencyFrom, currencyTo);
+                double conversionRate = CurrencyConverter.GetConversionRate(currencyFrom, currencyTo);
                 var convertedValue= conversionRate * amount;
                 return convertedValue;
             }

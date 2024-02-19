@@ -54,33 +54,6 @@ namespace CurrencyConverterApplication.ViewModel
             return ProductsList;
         }
 
-        public async void GetProductPricesConverted(string currencyto)
-        {
-
-            try
-            {              
-                string currencyFrom = "USD";              
-                if (!this.ProductsList.Any())
-                {
-                    return;
-                }
-                double pricetoetRate = 10;
-                double conversionRate = 0.0;// await _productDataProvider.GetConversionRate(currencyFrom, currencyto, pricetoetRate);
-                foreach (var product in ProductsList)
-                {
-                    
-                    product.PriceConverted= conversionRate*product.Price;
-
-                }
-     
-
-            }
-            catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
-
-        }
-
-
-
 
     }
 }
