@@ -114,7 +114,7 @@ namespace CurrencyConverterControl
         // Define CLR events for input and output value changes
         public event EventHandler<ValueChangedEventArgs> InputValueChanged;
 
-        private void OnInputValueChanged(object sender, ValueChangedEventArgs e)
+        public void OnInputValueChanged(object sender, ValueChangedEventArgs e)
         {
             InputValueChanged?.Invoke(sender, e);
             PerformCalculation(this);
