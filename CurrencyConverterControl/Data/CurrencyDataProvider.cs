@@ -9,6 +9,7 @@ using CurrencyConverterControl.Model;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.Configuration;
+using System.Threading;
 
 namespace CurrencyConverterControl.Data
 {
@@ -16,7 +17,7 @@ namespace CurrencyConverterControl.Data
     {
         private static readonly HttpClient httpClient = new HttpClient();
         string baseURl = "http://api.currencylayer.com/";
-        string access_key = "c4096f84eb488ec8d34ab1f72d61645c";
+        string access_key = "6ac174a15508ce09e2e89ad74ae79c45";
         Dictionary<string, double> exchangeRates = new Dictionary<string, double>();
         public CurrencyDataProvider()
         {
@@ -38,11 +39,9 @@ namespace CurrencyConverterControl.Data
             {
                 if (currencyfrom == currencyto) { return amount; }
                
-               
-                    //httpClient.DefaultRequestHeaders.Accept.Clear();
-                    //httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
                     string endpoint = String.Format("{0}convert?access_key={1}&from={2}&to={3}&amount={4}", baseURl, access_key, currencyfrom, currencyto, amount);
+                    // fix: Rate limit error when executing requests too quickly 
+                     Thread.Sleep(500);
                     HttpResponseMessage response =  httpClient.GetAsync(endpoint).Result;
 
                     if (response.IsSuccessStatusCode)
