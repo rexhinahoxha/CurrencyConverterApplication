@@ -82,11 +82,7 @@ namespace CurrencyConverterControl
         public double InputValue
         {
             get { return (double)GetValue(InputValueProperty); }
-            set 
-            {
-                SetValue(InputValueProperty, value);
-                OnInputValueChanged(this, new ValueChangedEventArgs(value));
-            }
+            set { SetValue(InputValueProperty, value);}
         }
         public static readonly DependencyProperty InputValueProperty =
             DependencyProperty.Register(nameof(InputValue), typeof(double), typeof(CurrencyConverterControl), 
@@ -106,15 +102,16 @@ namespace CurrencyConverterControl
             try
             {
                 CurrencyConverterControl control = (CurrencyConverterControl)d;
-                control.PerformCalculation(control);
+                control.OnInputValueChanged(d, new ValueChangedEventArgs((double)e.NewValue));
             }
             catch (Exception ex) { Console.WriteLine($"Error: {ex.Message}"); }
         }
 
-        // Define CLR events for input and output value changes
+        //CLR events for input and output value changes
         public event EventHandler<ValueChangedEventArgs> InputValueChanged;
+        public event EventHandler<ValueChangedEventArgs> OutputValueChanged;
 
-        public void OnInputValueChanged(object sender, ValueChangedEventArgs e)
+        protected virtual void OnInputValueChanged(object sender, ValueChangedEventArgs e)
         {
             InputValueChanged?.Invoke(sender, e);
             PerformCalculation(this);
@@ -131,7 +128,7 @@ namespace CurrencyConverterControl
         public double OutputValue
         {
             get { return (double)GetValue(OutputValueProperty); }
-           private set 
+            set 
             { 
                 SetValue(OutputValueProperty, value);                
             }
@@ -146,10 +143,18 @@ namespace CurrencyConverterControl
         {
             CurrencyConverterControl control = d as CurrencyConverterControl;
             if (control != null && CurrencyConverter is  null)
-            {                
+            {
                 //if Currency Converter is null, OnApplyTemplate() not entered yet
-                control.InputValue = CurrencyDataProvider.Convert(control.DestinationCurrency, control.SourceCurrency, (double)e.NewValue);
+                control.OnOutputValueChanged(control, new ValueChangedEventArgs((double)e.NewValue));
+                
             }
+        }
+
+        // Method to raise output value changed event
+        protected virtual void OnOutputValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            OutputValueChanged?.Invoke(sender, e);
+            InputValue = CurrencyDataProvider.Convert(DestinationCurrency, SourceCurrency, (double)e.NewValue);            
         }
 
         public static readonly DependencyProperty DestinationCurrencyProperty =
