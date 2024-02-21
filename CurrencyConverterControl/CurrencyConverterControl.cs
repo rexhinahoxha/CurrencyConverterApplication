@@ -142,10 +142,9 @@ namespace CurrencyConverterControl
         private static void OutputValue_Textchanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             CurrencyConverterControl control = d as CurrencyConverterControl;
-            if (control != null && CurrencyConverter is  null)
+            if (control != null)
             {
-                //if Currency Converter is null, OnApplyTemplate() not entered yet
-                control.OnOutputValueChanged(control, new ValueChangedEventArgs((double)e.NewValue));
+              control.OnOutputValueChanged(control, new ValueChangedEventArgs((double)e.NewValue));
                 
             }
         }
