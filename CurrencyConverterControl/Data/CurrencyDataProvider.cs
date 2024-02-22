@@ -38,24 +38,27 @@ namespace CurrencyConverterControl.Data
             try
             {
                 if (currencyfrom == currencyto) { return amount; }
-               
-                    string endpoint = String.Format("{0}convert?access_key={1}&from={2}&to={3}&amount={4}", baseURl, access_key, currencyfrom, currencyto, amount);
-                    // fix: Rate limit error when executing requests too quickly 
-                     Thread.Sleep(500);
-                    HttpResponseMessage response =  httpClient.GetAsync(endpoint).Result;
 
-                    if (response.IsSuccessStatusCode)
-                    {
-                        string content =  response.Content.ReadAsStringAsync().Result;
-                        JObject json = JObject.Parse(content);
-                        double value = (double)json["result"];                        
-                        return value;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Request failed with status code: " + response.StatusCode);
-                    }
-                
+                if (exchangeRates.Count > 0)
+                {
+                    double exchangeRate1 = 1;
+                    double exchangeRate2 = 1;
+                    string rate1 = String.Concat("USD",currencyfrom);
+                    string rate2 = String.Concat("USD", currencyto);
+                    //Get rates
+                    if (!rate1.Equals("USDUSD")) exchangeRate1 = exchangeRates.GetValueOrDefault(rate1);
+                    if (!rate2.Equals("USDUSD")) exchangeRate2 = exchangeRates.GetValueOrDefault(rate2);
+
+                    // Convert source to base currency USD
+                    double amountInUsd = amount / exchangeRate1;
+
+                    // Convert amount in USD to destination currency
+                    double amountConverted = amountInUsd * exchangeRate2;
+
+
+                    return amountConverted;
+                }
+
             }
             catch (Exception ex)
             {

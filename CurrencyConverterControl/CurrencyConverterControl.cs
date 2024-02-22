@@ -144,15 +144,15 @@ namespace CurrencyConverterControl
             CurrencyConverterControl control = d as CurrencyConverterControl;
             if (control != null)
             {
-              control.OnOutputValueChanged(control, new ValueChangedEventArgs((double)e.NewValue));
-                
+                control.OnOutputValueChanged(control, new ValueChangedEventArgs((double)e.NewValue));
+
             }
         }
 
         // Method to raise output value changed event
         protected virtual void OnOutputValueChanged(object sender, ValueChangedEventArgs e)
         {
-            OutputValueChanged?.Invoke(sender, e);
+            OutputValueChanged?.Invoke(sender, e);            
             InputValue = CurrencyDataProvider.Convert(DestinationCurrency, SourceCurrency, (double)e.NewValue);            
         }
 
@@ -416,7 +416,7 @@ namespace CurrencyConverterControl
     public class ValueChangedEventArgs : EventArgs
     {
         public double NewValue { get; }
-        
+      
         public ValueChangedEventArgs(double newValue)
         {
             NewValue = newValue;
