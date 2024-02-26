@@ -1,0 +1,123 @@
+﻿# Ignore Visual Studio files
+.vscode/
+.vs/
+
+# Ignore DLL and PDB files
+*.dll
+*.pdb
+
+# Ignore NuGet packages
+*.nupkg
+packages/
+
+# Ignore user-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Ignore build directories
+[Oo]bj/
+[Cc]ache/
+[Bb]in/
+
+# Ignore ReSharper and Rider files
+_ReSharper*/
+*.resharper
+*.suo
+*.user
+*.sln.docstates
+
+# Ignore Visual Studio Code directories
+.vscode/
+**/.vs/
+*.wsuo
+
+# Ignore Rider directories
+.idea/
+
+# Ignore Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Ignore .NET build artifacts
+*.i
+*.resources
+*.cache
+
+# Ignore specific project artifacts
+*.csproj.FileListAbsolute.txt
+*.g.cs
+*.g.i.cs
+*.g.resources
+*.i.cache
+*.lref
+*.baml
+*.sourcelink.json
+
+# Ignore SQLite database files
+.slnx.sqlite
+
+# Ignore test-related artifacts
+/CurrencyConverterApplicationTests/obj/Debug/net6.0-windows/
+
+# Ignore generated files in /CurrencyControl/obj/
+/CurrencyControl/obj/Debug/Themes/
+/CurrencyControl/obj/Debug/*.csproj.CoreCompileInputs.cache
+/CurrencyControl/obj/Debug/*.csproj.FileListAbsolute.txt
+/CurrencyControl/obj/Debug/*.g.resources
+/CurrencyControl/obj/Debug/*_MarkupCompile.cache
+/CurrencyControl/obj/Debug/*_MarkupCompile.lref
+/CurrencyConverterApplicationTests/obj/Debug/Themes/
+/CurrencyConverterApplicationTests/obj/Debug/*.csproj.CoreCompileInputs.cache
+/CurrencyConverterApplicationTests/obj/Debug/*.csproj.FileListAbsolute.txt
+/CurrencyConverterApplicationTests/obj/Debug/*.g.resources
+/CurrencyConverterApplicationTests/obj/Debug/*_MarkupCompile.cache
+/CurrencyConverterApplicationTests/obj/Debug/*_MarkupCompile.lref
+/MainWindow.baml
+/MainWindow.g.cs
+/CurrencyConverterApplicationTests/bin/Debug/net6.0-windows/CurrencyConverterApplication.deps.json
+/CurrencyConverterApplicationTests/bin/Debug/net6.0-windows/CurrencyConverterApplication.exe
+/CurrencyConverterApplicationTests/bin/Debug/net6.0-windows/CurrencyConverterApplicationTests.deps.json
+/CurrencyConverterApplicationTests/obj/Debug/net6.0-windows/CurrencyConverterApplicationTests.AssemblyInfo.cs
+/CurrencyConverterApplicationTests/obj/Debug/net6.0-windows/CurrencyConverterApplicationTests.AssemblyInfoInputs.cache
+/CurrencyConverterApplicationTests/obj/Debug/net6.0-windows/CurrencyConverterApplicationTests.assets.cache
+/CurrencyConverterApplicationTests/obj/Debug/net6.0-windows/CurrencyConverterApplicationTests.csproj.AssemblyReference.cache
+/CurrencyConverterApplicationTests/obj/Debug/net6.0-windows/CurrencyConverterApplicationTests.csproj.CoreCompileInputs.cache
+/CurrencyConverterApplicationTests/obj/Debug/net6.0-windows/CurrencyConverterApplicationTests.csproj.FileListAbsolute.txt
+/CurrencyConverterApplicationTests/obj/Debug/net6.0-windows/CurrencyConverterApplicationTests.sourcelink.json
+/CurrencyConverterApplicationTests/obj/CurrencyConverterApplicationTests.csproj.nuget.dgspec.json
+/CurrencyConverterApplicationTests/obj/project.nuget.cache
+/CurrencyConverterApplication/bin/Debug/net6.0-windows/CurrencyConverterApplication.deps.json
+/CurrencyConverterApplication/bin/Debug/net6.0-windows/CurrencyConverterApplication.exe
+/CurrencyConverterApplication/App.xaml
+/CurrencyConverterApplication/CurrencyConverterApplication.csproj
+/CurrencyConverterApplicationTests/obj/project.assets.json
+/CurrencyConverterControl/packages.config
+/CurrencyConverterApplication/bin/Debug/net6.0-windows/CurrencyConverterApplication.deps.json
+/CurrencyConverterApplication/bin/Debug/net6.0-windows/CurrencyConverterApplication.exe
+/CurrencyConverterApplication/obj/CurrencyConverterApplication.csproj.nuget.dgspec.json
+/CurrencyConverterApplication/obj/project.assets.json
+/CurrencyConverterApplication/obj/project.nuget.cache
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/App.g.cs
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/App.g.i.cs
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/apphost.exe
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication.AssemblyInfo.cs
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication.AssemblyInfoInputs.cache
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication.csproj.AssemblyReference.cache
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication.csproj.CoreCompileInputs.cache
+/CurrencyConverterApplication/obj/Debug/net6.0-windows/CurrencyConverterApplication.sourcelink.json
+/CurrencyConverterApplicationTests/bin/Debug/net6.0-windows/CurrencyConverterApplication.deps.json
+/CurrencyConverterApplicationTests/bin/Debug/net6.0-windows/CurrencyConverterApplication.exe
+/CurrencyConverterApplicationTests/bin/Debug/net6.0-windows/CurrencyConverterApplicationTests.deps.json
+/CurrencyConverterApplicationTests/obj/Debug/net6.0-windows/CurrencyConverterApplicationTests.AssemblyInfo.cs
+/CurrencyConverterApplicationTests/obj/Debug/net6.0-windows/CurrencyConverterApplicationTests.AssemblyInfoInputs.cache
+/CurrencyConverterApplicationTests/obj/Debug/net6.0-windows/CurrencyConverterApplicationTests.assets.cache
+/CurrencyConverterApplicationTests/obj/Debug/net6.0-windows/CurrencyConverterApplicationTests.csproj.AssemblyReference.cache
+/CurrencyConverterApplicationTests/obj/Debug/net6.0-windows/CurrencyConverterApplicationTests.csproj.CoreCompileInputs.cache
+/CurrencyConverterApplicationTests/obj/Debug/net6.0-windows/CurrencyConverterApplicationTests.csproj.FileListAbsolute.txt
+/CurrencyConverterApplicationTests/obj/Debug/net6.0-windows/CurrencyConverterApplicationTests.sourcelink.json
+/CurrencyConverterApplicationTests/obj/CurrencyConverterApplicationTests.csproj.nuget.dgspec.json
+/CurrencyConverterApplicationTests/obj/project.assets.json
+/CurrencyConverterApplicationTests/obj/project.nuget.cache
+/CurrencyConverterControl/packages.config
